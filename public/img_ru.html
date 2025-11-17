@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Поиск контента - Ai-Toolkit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700|Indie+Flower" rel="stylesheet">
+    
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+      .content-finder-section {
+        background-color: #B2B2B2;
+        padding: 2rem 0;
+        margin-top: 200px;
+      }
+      
+      .content-container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+      
+      .content-header {
+        background: #fd4d40;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+      
+      .topics-section {
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .topics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .topic-card {
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+      }
+      
+      .topic-card:hover {
+        transform: translateY(-5px);
+        border-color: #fd4d40;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .topic-card.selected {
+        border-color: #fd4d40;
+        background: #fff5f5;
+      }
+      
+      .topic-icon {
+        font-size: 2.5rem;
+        color: #fd4d40;
+        margin-bottom: 1rem;
+      }
+      
+      .custom-topic-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top: 1rem;
+        display: none;
+      }
+      
+      .content-type-section {
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+      }
+      
+      .content-type-grid {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      .content-type-card {
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+        min-width: 150px;
+      }
+      
+      .content-type-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .content-type-card.selected {
+        border-color: #fd4d40;
+        background: #fff5f5;
+      }
+      
+      .content-type-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .type-image .content-type-icon {
+        color: #16c3b0;
+      }
+      
+      .type-video .content-type-icon {
+        color: #fd4d40;
+      }
+      
+      .find-content-btn {
+        background-color: #fd4d40;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .find-content-btn:hover {
+        background-color: #e04438;
+      }
+      
+      .find-content-btn:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+      
+      .content-display {
+        padding: 1.5rem;
+        display: none;
+      }
+      
+      .content-result {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 2px solid #e9ecef;
+      }
+      
+      .content-image {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 8px;
+        margin: 0 auto 1rem;
+        display: block;
+      }
+      
+      .content-video {
+        width: 100%;
+        max-width: 600px;
+        height: 340px;
+        border-radius: 8px;
+        margin: 0 auto 1rem;
+        display: block;
+      }
+      
+      .content-description {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #333;
+        margin-top: 1rem;
+      }
+      
+      .content-controls {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      
+      .content-btn {
+        padding: 0.5rem 1.5rem;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+      
+      .new-content-btn {
+        background-color: #16c3b0;
+        color: white;
+      }
+      
+      .new-content-btn:hover {
+        background-color: #14b3a1;
+      }
+      
+      .download-btn {
+        background-color: #fdb62f;
+        color: white;
+      }
+      
+      .download-btn:hover {
+        background-color: #eca61f;
+      }
+      
+      .searching-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .searching-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #fd4d40;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .topic-badge {
+        display: inline-block;
+        background: #fd4d40;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+      }
+      
+      .type-badge {
+        display: inline-block;
+        background: #16c3b0;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+      }
+      
+      .language-selector {
+        margin: 1rem 0;
+        text-align: center;
+      }
+      
+      .lang-btn {
+        background: #e9ecef;
+        border: none;
+        padding: 0.5rem 1rem;
+        margin: 0 0.25rem;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      
+      .lang-btn.active {
+        background: #fd4d40;
+        color: white;
+      }
+      
+      .search-results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      
+      .search-result-item {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+      }
+      
+      .search-result-item:hover {
+        transform: translateY(-5px);
+      }
+      
+      .result-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      
+      .result-info {
+        padding: 1.5rem;
+      }
+      
+      .result-title {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+      
+      .result-description {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .result-source {
+        color: #6c757d;
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .view-original-btn {
+        background: #fd4d40;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        width: 100%;
+        margin-top: 1rem;
+        transition: background-color 0.3s;
+      }
+      
+      .view-original-btn:hover {
+        background: #e04438;
+      }
+      
+      .ai-recommendation {
+        background: #e8f5e8;
+        border-left: 4px solid #4CAF50;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 12px 12px 0;
+      }
+      
+      .media-container {
+        text-align: center;
+        margin: 1rem 0;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+      
+      .embedded-media {
+        margin: 1rem 0;
+        text-align: center;
+      }
+
+      .auth-indicator {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #28a745;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style="background-color: #B2B2B2;">
+
+    <div class="site-wrap" id="home-section">
+
+     <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+     </div>
+
+      <header class="site-navbar site-navbar-target" role="banner">
+        <div class="container mb-3">
+          <div class="d-flex align-items-center">
+            <div class="site-logo mr-auto">
+              <a href="index_ru.html">Ai-Toolkit<span class="text-primary">.</span></a>
+            </div>
+            <div class="site-quick-contact d-none d-lg-flex ml-auto ">
+              <div class="d-flex site-info align-items-center mr-5">
+                <span class="block-icon mr-3"><span class="icon-map-marker text-yellow"></span></span>
+                <span>Школа имени Шерхана Муртазы <br>Тараз</span>
+              </div>
+              <div class="d-flex site-info align-items-center">
+                <span class="block-icon mr-3"><span class="icon-clock-o"></span></span>
+                <span>В разработке</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="menu-wrap d-flex align-items-center">
+            <span class="d-inline-block d-lg-none"><a href="#" class="text-black site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-black"></span></a></span>
+
+            <nav class="site-navigation text-left mr-auto d-none d-lg-block" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto ">
+                  <li><a href="index_ru.html" class="nav-link">Главная</a></li>
+                  <li><a href="chat_ru.html" class="nav-link">AI Ассистент</a></li>
+                  <li><a href="test_ru.html" class="nav-link">Генератор тестов</a></li>
+                  <li class="active"><a href="img_ru.html" class="nav-link">Поиск контента</a></li>
+                  <li><a href="contact_ru.html" class="nav-link">Контакты</a></li>
+                  <li><a href="edu_ru.html" class="nav-link">Обучение</a></li>
+                  <li><a href="acc_ru.html" class="nav-link">Аккаунт</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-finder-section">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-12 text-center">
+              <span class="text-cursive h5 text-red d-block">Образовательный поиск контента</span>
+              <h2 class="text-black">Откройте для себя ресурсы по компьютерным наукам!</h2>
+              <p class="lead">Выберите тему и тип контента для поиска образовательных материалов онлайн</p>
+            </div>
+          </div>
+          
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="content-container">
+                <div class="content-header">
+                  <h3 class="text-white m-0">Поиск контента</h3>
+                </div>
+                
+                <div class="topics-section">
+                  <h4 class="text-center mb-4">Выберите тему компьютерных наук</h4>
+                  <div class="topics-grid" id="topicsGrid">
+                  </div>
+                </div>
+                
+                <div class="content-type-section">
+                  <h4 class="text-center mb-4">Выберите тип контента</h4>
+                  <div class="content-type-grid" id="contentTypeGrid">
+                  </div>
+                  
+                  <div class="language-selector">
+                    <strong>Язык поиска:</strong>
+                    <button class="lang-btn active" data-lang="ru">Русский</button>
+                    <button class="lang-btn" data-lang="en">English</button>
+                    <button class="lang-btn" data-lang="kk">Қазақша</button>
+                  </div>
+                  
+                  <button class="find-content-btn" id="findContentBtn" disabled>Найти контент онлайн</button>
+                </div>
+                
+                <div class="content-display" id="contentDisplay">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mt-5">
+            <div class="col-md-4 text-center">
+              <div class="block-2 red">
+                <span class="wrap-icon">
+                  <span class="icon-image"></span>
+                </span>
+                <h2>Образовательные изображения</h2>
+                <p>Найдите диаграммы, иллюстрации и визуальные объяснения</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="block-2 yellow">
+                <span class="wrap-icon">
+                  <span class="icon-video"><img style="width: 50%; height: auto;" src="images/video.png"></span>
+                </span>
+                <h2>Обучающие видео</h2>
+                <p>Откройте для себя образовательные видео и руководства</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="searching-overlay" id="searchingOverlay">
+        <div class="searching-content">
+          <div class="loading-spinner"></div>
+          <h4>Поиск онлайн</h4>
+          <p id="searchingText">Находим образовательный контент для вас...</p>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4">
+              <h2 class="footer-heading mb-3">О нас</h2>
+              <p class="mb-5">Мы делаем изучение компьютерных наук веселым и доступным для учеников 5-7 классов</p>
+
+              <h2 class="footer-heading mb-4">Рассылка</h2>
+              <form action="#" class="d-flex">
+                <input type="text" class="form-control mr-3" placeholder="Email">
+                <input type="submit" class="btn btn-primary" value="Отправить">
+              </form>
+            </div>
+            <div class="col-lg-8 ml-auto">
+              <div class="row">
+                <div class="col-lg-4 ml-auto">
+                  <h2 class="footer-heading mb-4">Навигация</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="index_ru.html">Главная</a></li>
+                    <li><a href="chat_ru.html">AI Ассистент</a></li>
+                    <li><a href="test_ru.html">Генератор тестов</a></li>
+                    <li><a href="img_ru.html">Поиск контента</a></li>
+                    <li><a href="edu_ru.html">Обучение</a></li>
+                    <li><a href="acc_ru.html">Аккаунт</a></li>
+                  </ul>
+                </div>
+                <div class="col-lg-4">
+                  <h2 class="footer-heading mb-4">AI Инструменты</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="chat_ru.html">Учебный ассистент</a></li>
+                    <li><a href="test_ru.html">Генератор тестов</a></li>
+                    <li><a href="img_ru.html">Поиск контента</a></li>
+                    <li><a href="#">Отслеживание прогресса</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-5 mt-5 text-center">
+            <div class="col-md-12">
+              <div class="border-top pt-5">
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/responsive.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const topicsGrid = document.getElementById('topicsGrid');
+        const contentTypeGrid = document.getElementById('contentTypeGrid');
+        const findContentBtn = document.getElementById('findContentBtn');
+        const contentDisplay = document.getElementById('contentDisplay');
+        const searchingOverlay = document.getElementById('searchingOverlay');
+        const searchingText = document.getElementById('searchingText');
+        const langButtons = document.querySelectorAll('.lang-btn');
+        
+        let selectedTopic = null;
+        let selectedContentType = null;
+        let customTopicInput = null;
+        let currentLanguage = 'ru';
+
+        const computerScienceTopics = [
+          { id: 'what-is-coding', title: 'Что такое программирование?', description: 'Узнайте, как мы общаемся с компьютерами', icon: 'icon-code' },
+          { id: 'computer-parts', title: 'Части компьютера', description: 'Познакомьтесь с мозгом и памятью компьютеров', icon: 'icon-desktop' },
+          { id: 'internet-safety', title: 'Безопасность в интернете', description: 'Как оставаться в безопасности онлайн', icon: 'icon-shield' },
+          { id: 'algorithms', title: 'Алгоритмы', description: 'Пошаговые инструкции для компьютеров', icon: 'icon-list' },
+          { id: 'robotics', title: 'Робототехника', description: 'Как думают и двигаются роботы', icon: 'icon-settings' },
+          { id: 'game-design', title: 'Дизайн игр', description: 'Создавайте свои собственные видеоигры', icon: 'icon-gamepad' },
+          { id: 'web-design', title: 'Веб-дизайн', description: 'Создавайте удивительные веб-сайты', icon: 'icon-globe' },
+          { id: 'digital-art', title: 'Цифровое искусство', description: 'Создавайте искусство с компьютерами', icon: 'icon-palette' },
+          { id: 'custom', title: 'Своя тема', description: 'Введите свою собственную тему', icon: 'icon-edit', isCustom: true }
+        ];
+        
+        const contentTypes = [
+          { id: 'image', title: 'Изображения', description: 'Образовательные изображения', icon: 'icon-image', class: 'type-image' },
+          { id: 'video', title: 'Видео', description: 'Образовательные видео', icon: 'icon-video', class: 'type-video' }
+        ];
+
+        // Инициализация
+        function init() {
+          loadTopics();
+          loadContentTypes();
+          setupEventListeners();
+          initializeAccountIntegration();
+        }
+
+        function loadTopics() {
+          topicsGrid.innerHTML = '';
+          
+          computerScienceTopics.forEach(topic => {
+            const topicCard = document.createElement('div');
+            topicCard.className = 'topic-card';
+            topicCard.innerHTML = `
+              <div class="topic-icon">
+                <span class="${topic.icon}"></span>
+              </div>
+              <h5>${topic.title}</h5>
+              <p class="text-muted">${topic.description}</p>
+              ${topic.isCustom ? '<input type="text" class="custom-topic-input" placeholder="Введите вашу тему...">' : ''}
+            `;
+            
+            topicCard.addEventListener('click', () => {
+              document.querySelectorAll('.topic-card').forEach(card => {
+                card.classList.remove('selected');
+              });
+              
+              topicCard.classList.add('selected');
+              
+              if (topic.isCustom) {
+                const input = topicCard.querySelector('.custom-topic-input');
+                input.style.display = 'block';
+                input.focus();
+                
+                selectedTopic = {
+                  id: 'custom',
+                  title: '',
+                  description: 'Своя тема',
+                  isCustom: true
+                };
+                
+                updateFindButtonState();
+                customTopicInput = input;
+                
+                input.addEventListener('input', function() {
+                  selectedTopic.title = this.value;
+                  updateFindButtonState();
+                });
+              } else {
+                selectedTopic = topic;
+                updateFindButtonState();
+              }
+            });
+            
+            topicsGrid.appendChild(topicCard);
+          });
+        }
+        
+        function loadContentTypes() {
+          contentTypeGrid.innerHTML = '';
+          
+          contentTypes.forEach(type => {
+            const typeCard = document.createElement('div');
+            typeCard.className = `content-type-card ${type.class}`;
+            typeCard.innerHTML = `
+              <div class="content-type-icon">
+                <span class="${type.icon}"></span>
+              </div>
+              <h5>${type.title}</h5>
+              <p class="text-muted">${type.description}</p>
+            `;
+            
+            typeCard.addEventListener('click', () => {
+              document.querySelectorAll('.content-type-card').forEach(card => {
+                card.classList.remove('selected');
+              });
+              
+              typeCard.classList.add('selected');
+              selectedContentType = type;
+              updateFindButtonState();
+            });
+            
+            contentTypeGrid.appendChild(typeCard);
+          });
+        }
+        
+        function updateFindButtonState() {
+          findContentBtn.disabled = !(selectedTopic && selectedContentType && 
+            (!selectedTopic.isCustom || (selectedTopic.isCustom && selectedTopic.title)));
+        }
+
+        function setupEventListeners() {
+          findContentBtn.addEventListener('click', findContentWithAI);
+          
+          langButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+              langButtons.forEach(b => b.classList.remove('active'));
+              this.classList.add('active');
+              currentLanguage = this.dataset.lang;
+            });
+          });
+        }
+
+        async function findContentWithAI() {
+          if (!selectedTopic || !selectedContentType) return;
+          
+          const topicName = selectedTopic.isCustom ? selectedTopic.title : selectedTopic.title;
+          const contentType = selectedContentType.id;
+          
+          searchingText.textContent = `Ищем ${contentType} о ${topicName}...`;
+          searchingOverlay.style.display = 'flex';
+          
+          try {
+            const searchResults = await searchWithGemini(topicName, contentType, currentLanguage);
+            searchingOverlay.style.display = 'none';
+            displayAIResults(searchResults, topicName, selectedContentType);
+            
+          } catch (error) {
+            console.error('Ошибка AI поиска:', error);
+            searchingOverlay.style.display = 'none';
+            displayErrorContent(topicName, selectedContentType, error.message);
+          }
+        }
+
+        async function searchWithGemini(topic, contentType, language) {
+          const token = localStorage.getItem('aiToolkitToken');
+          const headers = {
+            'Content-Type': 'application/json'
+          };
+
+          if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+          }
+
+          const response = await fetch('/api/search-content', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+              topic: topic,
+              contentType: contentType,
+              language: language
+            })
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Ошибка сервера: ${response.status}`);
+          }
+
+          const data = await response.json();
+          return data;
+        }
+
+        function displayAIResults(results, topicName, contentType) {
+          let contentHTML = `
+            <div class="text-center mb-4">
+              <span class="topic-badge">${topicName}</span>
+              <span class="type-badge">${contentType.title}</span>
+              <h4>AI-курируемый контент (${getLanguageName(currentLanguage)})</h4>
+              <p class="text-muted">Найдено ${results.resources ? results.resources.length : 0} образовательных ресурсов с Gemini AI</p>
+            </div>
+            
+            <div class="ai-recommendation">
+              <strong>🤖 Рекомендация AI:</strong> ${results.ai_recommendation || 'Начните с первого ресурса для лучшего опыта обучения'}
+            </div>
+          `;
+
+          if (results.resources && results.resources.length > 0) {
+            contentHTML += `<div class="search-results-grid">`;
+            
+            results.resources.forEach((resource, index) => {
+              contentHTML += `
+                <div class="search-result-item">
+                  <div class="result-info">
+                    <div class="result-title">${resource.title}</div>
+                    <div class="result-description">${resource.description}</div>
+                    <div class="result-source">
+                      <strong>Подходит потому что:</strong> ${resource.suitability}
+                    </div>
+              `;
+
+              // Отображение встроенных медиа прямо на сайте
+              if (contentType.id === 'image' && resource.imageUrl) {
+                contentHTML += `
+                  <div class="embedded-media">
+                    <img src="${resource.imageUrl}" alt="${resource.title}" class="content-image" 
+                         onerror="this.src='https://via.placeholder.com/500x300/4CAF50/FFFFFF?text=Изображение+Не+Доступно'">
+                  </div>
+                `;
+              } else if (contentType.id === 'video' && resource.videoUrl) {
+                // Для YouTube видео - встраивание напрямую
+                if (resource.videoUrl.includes('youtube.com') || resource.videoUrl.includes('youtu.be')) {
+                  const videoId = getYouTubeId(resource.videoUrl);
+                  if (videoId) {
+                    contentHTML += `
+                      <div class="embedded-media">
+                        <iframe class="content-video" 
+                                src="https://www.youtube.com/embed/${videoId}" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                      </div>
+                    `;
+                  }
+                } else {
+                  // Для других URL видео - попытка встроить напрямую
+                  contentHTML += `
+                    <div class="embedded-media">
+                      <video class="content-video" controls>
+                        <source src="${resource.videoUrl}" type="video/mp4">
+                        Ваш браузер не поддерживает тег видео.
+                      </video>
+                    </div>
+                  `;
+                }
+              } 
+
+              contentHTML += `
+                    <button class="view-original-btn" onclick="openResource('${resource.url}')">
+                      🔗 Посмотреть оригинальный источник
+                    </button>
+                  </div>
+                </div>
+              `;
+            });
+
+            contentHTML += `</div>`;
+          } else {
+            contentHTML += `
+              <div class="content-result" style="text-align: center; padding: 2rem;">
+                <div style="font-size: 48px; margin-bottom: 1rem;">🔍</div>
+                <h5>Результаты не найдены</h5>
+                <p class="text-muted">Попробуйте другую тему или тип контента</p>
+              </div>
+            `;
+          }
+
+          contentHTML += `
+            <div class="content-controls">
+              <button class="content-btn new-content-btn" id="newContentBtn">
+                🔄 Искать снова
+              </button>
+              <button class="content-btn download-btn" onclick="saveAIResults(${JSON.stringify(results).replace(/"/g, '&quot;')}, '${topicName}')">
+                💾 Сохранить результаты
+              </button>
+            </div>
+            
+            <div class="text-center mt-4">
+              <p class="text-muted">
+                <small>Работает на Google Gemini AI. Все медиа воспроизводятся прямо на этом сайте.</small>
+              </p>
+            </div>
+          `;
+          
+          contentDisplay.innerHTML = contentHTML;
+          contentDisplay.style.display = 'block';
+          
+          document.getElementById('newContentBtn').addEventListener('click', resetContent);
+        }
+
+        // Получить ID YouTube видео из URL
+        function getYouTubeId(url) {
+          const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+          const match = url.match(regExp);
+          return (match && match[7].length === 11) ? match[7] : null;
+        }
+
+        function displayErrorContent(topicName, contentType, errorMessage) {
+          const contentHTML = `
+            <div class="text-center mb-4">
+              <span class="topic-badge">${topicName}</span>
+              <span class="type-badge">${contentType.title}</span>
+              <h4>AI поиск не удался</h4>
+            </div>
+            
+            <div class="content-result" style="text-align: center; padding: 2rem;">
+              <div style="font-size: 48px; margin-bottom: 1rem;">❌</div>
+              <h5 style="color: #dc3545;">Невозможно выполнить поиск с AI</h5>
+              <p style="color: #6c757d;">Ошибка: ${errorMessage}</p>
+              <p style="color: #6c757d;">Пожалуйста, проверьте ваше соединение и попробуйте снова.</p>
+            </div>
+            
+            <div class="content-controls">
+              <button class="content-btn new-content-btn" onclick="resetContent()">
+                Попробовать снова
+              </button>
+            </div>
+          `;
+          
+          contentDisplay.innerHTML = contentHTML;
+          contentDisplay.style.display = 'block';
+        }
+        
+        function resetContent() {
+          contentDisplay.style.display = 'none';
+          selectedTopic = null;
+          selectedContentType = null;
+          updateFindButtonState();
+          document.querySelectorAll('.topic-card').forEach(card => {
+            card.classList.remove('selected');
+            const input = card.querySelector('.custom-topic-input');
+            if (input) {
+              input.style.display = 'none';
+              input.value = '';
+            }
+          });
+          document.querySelectorAll('.content-type-card').forEach(card => {
+            card.classList.remove('selected');
+          });
+        }
+
+        function getLanguageName(langCode) {
+          const languages = {
+            'ru': 'Русский',
+            'en': 'English',
+            'kk': 'Казахский'
+          };
+          return languages[langCode] || langCode;
+        }
+
+        // Интеграция с системой аккаунтов
+        function initializeAccountIntegration() {
+          const savedUser = localStorage.getItem('aiToolkitUser');
+          if (savedUser) {
+            const user = JSON.parse(savedUser);
+            
+            // Показываем индикатор авторизации
+            showAuthIndicator(user);
+          }
+        }
+
+        function showAuthIndicator(user) {
+          // Добавляем индикатор в навигацию
+          const nav = document.querySelector('.site-navigation');
+          if (nav && !document.getElementById('authIndicator')) {
+            const authIndicator = document.createElement('div');
+            authIndicator.id = 'authIndicator';
+            authIndicator.className = 'auth-indicator';
+            authIndicator.innerHTML = `👤 ${user.username} (Ур ${user.level})`;
+            document.body.appendChild(authIndicator);
+          }
+        }
+
+        init();
+      });
+
+      // Глобальные функции для управления медиа
+      function openResource(url) {
+        window.open(url, '_blank');
+        showNotification('🌐 Открываем оригинальный источник...');
+      }
+      
+      function saveAIResults(results, topic) {
+        const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `gemini-ai-results-${topic}-${new Date().getTime()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showNotification('💾 Результаты AI поиска сохранены');
+      }
+      
+      function showNotification(message) {
+        const existingNotification = document.querySelector('.content-notification');
+        if (existingNotification) {
+          existingNotification.remove();
+        }
+        
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #333;
+          color: white;
+          padding: 1rem 1.5rem;
+          border-radius: 5px;
+          z-index: 10000;
+          font-family: Arial, sans-serif;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>

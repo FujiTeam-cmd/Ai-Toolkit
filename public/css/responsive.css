@@ -1,0 +1,326 @@
+/* responsive.css - Адаптивные стили для всех устройств */
+
+/* ===== БАЗОВЫЕ АДАПТИВНЫЕ СТИЛИ ===== */
+html {
+  font-size: 16px;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+body {
+  margin-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Touch-friendly элементы для мобильных */
+.generate-btn, 
+.lang-btn, 
+.download-btn, 
+.new-material-btn,
+.btn {
+  min-height: 44px;
+  padding: 12px 16px;
+}
+
+.form-control {
+  min-height: 44px;
+  font-size: 16px; /* Предотвращает зум в iOS */
+}
+header {
+  position: static !important;
+}
+
+/* ===== МОБИЛЬНЫЕ УСТРОЙСТВА (до 768px) ===== */
+@media (max-width: 767.98px) {
+  body {
+    font-size: 14px;
+  }
+  
+  /* Навигация */
+  .site-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+    background: #B2B2B2;;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  /* Образовательная секция */
+  .education-section {
+    margin-top: 120px !important;
+    padding: 1rem 0;
+  }
+  
+  .education-container {
+    margin: 0 10px 1rem;
+    border-radius: 8px;
+  }
+  
+  .input-section {
+    padding: 1rem;
+  }
+  
+  /* Кнопки языка в колонку */
+  .language-selector {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .lang-btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  /* Основные кнопки */
+  .generate-btn {
+    padding: 1.2rem 1rem;
+    font-size: 1.1rem;
+  }
+  
+  /* Контент материала */
+  .material-content {
+    max-height: 50vh;
+    padding: 1rem;
+  }
+  
+  .material-section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Текст */
+  .formatted-content {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .formatted-content h1 {
+    font-size: 1.4rem;
+  }
+  
+  .formatted-content h2 {
+    font-size: 1.2rem;
+  }
+  
+  .formatted-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  /* Код блоки */
+  .code-block, 
+  .formatted-content pre {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+    overflow-x: auto;
+  }
+  
+  /* Кнопки действий */
+  .download-btn, 
+  .new-material-btn {
+    padding: 1rem;
+    margin: 0.25rem;
+    font-size: 0.9rem;
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Статистика в аккаунте */
+  .stats-card {
+    margin-bottom: 10px;
+  }
+  
+  .stats-card h2 {
+    font-size: 1.5rem;
+  }
+  
+  /* Прогресс бары */
+  .progress-section {
+    margin-bottom: 15px;
+  }
+  
+  /* Карточки в одну колонку */
+  .col-md-4,
+  .col-md-6,
+  .col-md-3 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  /* Планы обучения */
+  .plan-card {
+    margin-bottom: 15px;
+  }
+  
+  /* Футер */
+  .site-footer {
+    padding: 2rem 0;
+  }
+  
+  .site-footer .row {
+    flex-direction: column;
+  }
+  
+  /* Скрываем лишние элементы на мобильных */
+  .site-quick-contact {
+    display: none !important;
+  }
+  
+  /* Адаптивные таблицы */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Loading overlay */
+  .loading-content {
+    margin: 1rem;
+    max-width: 90%;
+  }
+}
+
+/* ===== ЛАНДШАФТНЫЙ РЕЖИМ МОБИЛЬНЫХ ===== */
+@media (max-width: 767.98px) and (orientation: landscape) {
+  .material-content {
+    max-height: 40vh;
+  }
+  
+  .education-section {
+    margin-top: 100px !important;
+  }
+}
+
+/* ===== ПЛАНШЕТЫ (768px - 1024px) ===== */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .education-section {
+    margin-top: 150px !important;
+  }
+  
+  .material-content {
+    max-height: 55vh;
+  }
+  
+  /* 2 колонки для планшетов */
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  /* Уменьшаем отступы */
+  .container {
+    max-width: 95%;
+  }
+  
+  /* Адаптивные кнопки */
+  .download-btn, 
+  .new-material-btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== ДЕСКТОПЫ (1024px+) ===== */
+@media (min-width: 1024px) {
+  .education-section {
+    margin-top: 200px !important;
+  }
+  
+  .container {
+    max-width: 1140px;
+  }
+}
+
+/* ===== БОЛЬШИЕ ЭКРАНЫ (1200px+) ===== */
+@media (min-width: 1200px) {
+  .education-container {
+    max-width: 1000px;
+    margin: 0 auto 2rem;
+  }
+}
+
+/* ===== ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (до 360px) ===== */
+@media (max-width: 359.98px) {
+  body {
+    font-size: 13px;
+  }
+  
+  .education-section {
+    margin-top: 100px !important;
+  }
+  
+  .input-section {
+    padding: 0.75rem;
+  }
+  
+  .generate-btn {
+    padding: 1rem 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .stats-card h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* ===== ВЫСОКОПИКСЕЛЬНЫЕ ЭКРАНЫ (2x и более) ===== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .generate-btn,
+  .download-btn,
+  .new-material-btn {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ===== ТЕМНАЯ ТЕМА ПОДДЕРЖКА ===== */
+@media (prefers-color-scheme: dark) {
+  /* Можно добавить темную тему если нужно */
+}
+
+/* ===== REDUCED MOTION (для доступности) ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .loading-spinner {
+    animation: none;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #fd4d40;
+  }
+}
+
+/* ===== ПЕЧАТЬ ===== */
+@media print {
+  .site-navbar,
+  .generate-btn,
+  .language-selector,
+  .download-btn,
+  .new-material-btn,
+  .site-footer {
+    display: none !important;
+  }
+  
+  .education-section {
+    margin-top: 0 !important;
+    background: #B2B2B2 !important;
+  }
+  
+  .education-container {
+    box-shadow: none !important;
+    border: 1px solid #ddd;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "ai-toolkit-server",
+  "version": "1.0.0",
+  "description": "AI Toolkit Server with Gemini API - Port 80",
+  "main": "server.js",
+  "scripts": {
+    "start": "sudo node server.js",
+    "dev": "sudo nodemon server.js",
+    "ngrok": "npx ngrok http 80"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "ai",
+    "education",
+    "gemini",
+    "nodejs",
+    "port80"
+  ],
+  "author": "Ai-Toolkit",
+  "license": "MIT"
+}

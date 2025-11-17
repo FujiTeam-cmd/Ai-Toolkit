@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <title>Медиа - Ai-Toolkit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700|Indie+Flower" rel="stylesheet">
+    
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .media-section {
+            padding: 100px 0 50px;
+            background-color: #f8f9fa;
+        }
+        
+        .video-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .language-navigation {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .lang-btn {
+            margin: 0 10px;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: 600;
+        }
+        
+        .lang-btn.active {
+            background: #fd4d40;
+            border-color: #fd4d40;
+        }
+        
+        .video-description {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .video-description h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .video-description p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+    <div class="site-wrap" id="home-section">
+
+        <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+
+        <header class="site-navbar site-navbar-target" role="banner">
+            <div class="container mb-3">
+                <div class="d-flex align-items-center">
+                    <div class="site-logo mr-auto">
+                        <a href="index.html">Ai-Toolkit<span class="text-primary">.</span></a>
+                    </div>
+                    <div class="site-quick-contact d-none d-lg-flex ml-auto ">
+                        <div class="d-flex site-info align-items-center mr-5">
+                            <span class="block-icon mr-3"><span class="icon-map-marker text-yellow"></span></span>
+                            <span>Школа имени Шерхан Муртаза <br>Тараз</span>
+                        </div>
+                        <div class="d-flex site-info align-items-center">
+                            <span class="block-icon mr-3"><span class="icon-clock-o"></span></span>
+                            <span>В разработке</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="menu-wrap d-flex align-items-center">
+                    <span class="d-inline-block d-lg-none">
+                        <a href="#" class="text-black site-menu-toggle js-menu-toggle py-5">
+                            <span class="icon-menu h3 text-black"></span>
+                        </a>
+                    </span>
+
+                    <nav class="site-navigation text-left mr-auto d-none d-lg-block" role="navigation">
+                        <ul class="site-menu main-menu js-clone-nav mr-auto ">
+                            <li><a href="index.html" class="nav-link">Главная</a></li>
+                            <li><a href="chat.html" class="nav-link">AI Ассистент</a></li>
+                            <li><a href="test.html" class="nav-link">Генератор тестов</a></li>
+                            <li><a href="img.html" class="nav-link">Поиск контента</a></li>
+                            <li><a href="contact.html" class="nav-link">Контакты</a></li>
+                            <li><a href="edu.html" class="nav-link">Обучение</a></li>
+                            <li><a href="acc.html" class="nav-link">Аккаунт</a></li>
+                            <li class="active"><a href="media_ru.html" class="nav-link">Медиа</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <div class="ftco-blocks-cover-1">
+            <div class="site-section-cover overlay" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-8 mt-5 pt-5">
+                            <span class="text-cursive h5 text-white">AR/VR технологии</span>
+                            <h1 class="mb-3 font-weight-bold text-white">Демонстрация проекта</h1>
+                            <p class="text-white">Исследуйте будущее образования с нашими AR/VR решениями</p>
+                        </div>
+                        <div class="col-md-4 ml-auto align-self-end">
+                            <img src="images/ar-vr.png" alt="AR/VR" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-section media-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="video-container">
+                            <div class="video-wrapper">
+                                <!-- Замените src на ваше реальное видео -->
+                                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                        title="Демонстрация Ai-Toolkit AR/VR"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                </iframe>
+                                
+                                <!-- Альтернативно, можно использовать placeholder -->
+                                <!--
+                                <div class="video-placeholder">
+                                    <div class="placeholder-icon">🎬</div>
+                                    <h3 style="color: white; margin-bottom: 10px;">Демонстрация Ai-Toolkit AR/VR</h3>
+                                    <p style="color: rgba(255,255,255,0.8);">Видео контент будет добавлен в ближайшее время</p>
+                                </div>
+                                -->
+                            </div>
+                            
+                            <div class="video-description">
+                                <h3>Революция в образовании с AR/VR</h3>
+                                <p>
+                                    Узнайте, как Ai-Toolkit интегрирует технологии дополненной и виртуальной реальности 
+                                    для создания immersive обучающих сред. Наша платформа преобразует сложные концепции 
+                                    компьютерных наук в интерактивные 3D-среды, делая обучение более увлекательным и 
+                                    эффективным для студентов.
+                                </p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+<div class="site-section media-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="video-container">
+                    <h3>Генерация контента</h3>
+                    <p>
+                        Создайте изображения:
+                        <a href="https://aistudio.google.com/prompts/new_chat?model=gemini-2.5-flash-image&prompt=Generate+an+image+of+a+banana+wearing+a+costume.">Google AI Studio</a>
+                        Промпт: "Яркое образовательное изображение для Ai-Toolkit: студенты изучают программирование с компьютерами, элементы ИИ, мультяшный стиль"
+                        <br><br>
+                        Создайте видео:
+                        <a href="https://labs.google/fx/ru/tools/flow">Google Flow</a>
+                        Промпт: "30-секундное анимированное видео об образовании с Ai-Toolkit: скучающий студент, появляется AI-помощник, интерактивное обучение, достижения"
+                        <br><br>
+                        Скопируйте промпт → Вставьте в сервис → Скачайте результат!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h2 class="footer-heading mb-3">О нас</h2>
+                        <p class="mb-5">Люди, которые верят, что обучение может быть увлекательным</p>
+
+                        <h2 class="footer-heading mb-4">Рассылка</h2>
+                        <form action="#" class="d-flex">
+                            <input type="text" class="form-control mr-3" placeholder="Email">
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-8 ml-auto">
+                        <div class="row">
+                            <div class="col-lg-4 ml-auto">
+                                <h2 class="footer-heading mb-4">Навигация</h2>
+                                <ul class="list-unstyled">
+                                    <li><a href="index.html">Главная</a></li>
+                                    <li><a href="chat.html">AI Ассистент</a></li>
+                                    <li><a href="test.html">Генератор тестов</a></li>
+                                    <li><a href="img.html">Поиск контента</a></li>
+                                    <li><a href="media_ru.html">Медиа</a></li>
+                                    <li><a href="edu.html">Обучение</a></li>
+                                    <li><a href="acc.html">Аккаунт</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                        <div class="border-top pt-5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/responsive.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

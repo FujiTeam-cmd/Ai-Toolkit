@@ -1,0 +1,115 @@
+{
+  "rasultlp@mail.ru": {
+    "username": "Rasul",
+    "email": "rasultlp@mail.ru",
+    "password": "Rasullusar",
+    "grade": "7",
+    "level": 1,
+    "experience": 0,
+    "joined": "2025-10-30T04:01:35.500Z",
+    "progress": {
+      "programming": 0,
+      "algorithms": 0,
+      "web": 0,
+      "databases": 0
+    },
+    "weeklyGoals": {
+      "completed": 0,
+      "total": 4,
+      "tasks": [
+        {
+          "task": "Complete 3 programming lessons",
+          "completed": false
+        },
+        {
+          "task": "Take algorithm quiz",
+          "completed": false
+        },
+        {
+          "task": "Practice with 5 AI requests",
+          "completed": false
+        },
+        {
+          "task": "Complete web development project",
+          "completed": false
+        }
+      ]
+    },
+    "monthlyGoals": {
+      "completed": 0,
+      "total": 4,
+      "objectives": [
+        {
+          "objective": "Complete Programming Fundamentals course",
+          "completed": false
+        },
+        {
+          "objective": "Reach Level 7",
+          "completed": false
+        },
+        {
+          "objective": "Master basic algorithms",
+          "completed": false
+        },
+        {
+          "objective": "Build a complete web application",
+          "completed": false
+        }
+      ]
+    }
+  },
+  "rasult@mail.ru": {
+    "username": "Расул",
+    "email": "rasult@mail.ru",
+    "password": "$2b$10$C7HVJDX222/xfCM5X6hiJuurIryWTyDY6P12Q5rQXoz59OV9e8azK",
+    "grade": "7",
+    "level": 2,
+    "experience": 120,
+    "joined": "2025-10-30T04:33:22.899Z"
+  },
+  "rasul@mail.ru": {
+    "username": "Rasul",
+    "email": "rasul@mail.ru",
+    "password": "$2b$10$f/AQBGIkNOgD5sDOZnSw5uodP1ck9Q5dSVOeG9EG1mcL4VEvlX9hC",
+    "grade": "5",
+    "level": 1,
+    "experience": 21,
+    "joined": "2025-11-01T08:37:16.379Z"
+  },
+  "rasulttt@mail.ru": {
+    "username": "rasul",
+    "email": "rasulttt@mail.ru",
+    "password": "$2b$10$SvRGgsMvc8xX5KcZTqzlF.TkelrP9OGdgT1pBstE5zFT8oqocNpi.",
+    "grade": "7",
+    "level": 1,
+    "experience": 0,
+    "joined": "2025-11-12T00:47:01.322Z"
+  },
+  "rasulttl@mail.ru": {
+    "username": "rasul",
+    "email": "rasulttl@mail.ru",
+    "password": "$2b$10$m/D85SamSXCzeWMns8QDWOUPmvozP0pGMHkQFzf2wkH27Ck7ZyirG",
+    "grade": "7",
+    "level": 1,
+    "experience": 72,
+    "joined": "2025-11-12T01:09:49.199Z"
+  },
+  "Rsss@mail.ru": {
+    "username": "Rasul",
+    "email": "Rsss@mail.ru",
+    "password": "$2b$10$EQdSncsUBJ2obi3xe36/geVqBzwLKHhGAcoUkQLRuPcWqSJWqhTbW",
+    "grade": "7",
+    "level": 1,
+    "experience": 21,
+    "joined": "2025-11-12T01:54:13.067Z"
+  },
+  "Rasull@mail.ru": {
+    "username": "RSl",
+    "email": "Rasull@mail.ru",
+    "password": "$2b$10$i8hwqjjrIeK9rzYWxfQqRO/65xVK1cksm4uBjz57fmmjpbHmkffyO",
+    "grade": "7",
+    "level": 1,
+    "experience": 0,
+    "joined": "2025-11-12T02:08:15.345Z"
+  }
+}

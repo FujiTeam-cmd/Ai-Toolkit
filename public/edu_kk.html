@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="kk">
+  <head>
+    <title>AI Білім - Ai-Toolkit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700|Indie+Flower" rel="stylesheet">
+    
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+      .education-section {
+        background-color: #B2B2B2;
+        padding: 2rem 0;
+      }
+      
+      .education-container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+      
+      .education-header {
+        background: #fd4d40;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+      
+      .input-section {
+        padding: 1.5rem;
+      }
+      
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      
+      .form-control {
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 0.75rem;
+      }
+      
+      .form-control:focus {
+        border-color: #fd4d40;
+        box-shadow: 0 0 0 0.2rem rgba(253, 77, 64, 0.25);
+      }
+      
+      .language-selector {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      .lang-btn {
+        flex: 1;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        background-color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+      }
+      
+      .lang-btn.active {
+        background-color: #fd4d40;
+        color: white;
+        border-color: #fd4d40;
+      }
+      
+      .generate-btn {
+        background-color: #fd4d40;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 1rem 2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        width: 100%;
+        font-size: 1.1rem;
+      }
+      
+      .generate-btn:hover {
+        background-color: #e04438;
+      }
+      
+      .generate-btn:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      
+      .material-content {
+        padding: 1.5rem;
+        max-height: 60vh;
+        overflow-y: auto;
+        display: none;
+      }
+      
+      .material-section {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid #fd4d40;
+      }
+      
+      .material-section h4 {
+        color: #fd4d40;
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+      
+      .step-item {
+        background: white;
+        border-radius: 5px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #e9ecef;
+      }
+      
+      .step-number {
+        background: #fd4d40;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+      
+      .code-block {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        border-radius: 5px;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-family: 'Courier New', monospace;
+        overflow-x: auto;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+      
+      .code-comment {
+        color: #75715e;
+      }
+      
+      .download-btn {
+        background-color: #16c3b0;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+      
+      .download-btn:hover {
+        background-color: #14b3a1;
+      }
+      
+      .new-material-btn {
+        background-color: #fdb62f;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+      }
+      
+      .new-material-btn:hover {
+        background-color: #eca61f;
+      }
+      
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .loading-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #fd4d40;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .auth-indicator {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #28a745;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      
+      .login-prompt {
+        text-align: center;
+        padding: 20px;
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      /* Стили для форматированного текста */
+      .formatted-content {
+        line-height: 1.6;
+        font-size: 1rem;
+        color: #333;
+      }
+      
+      .formatted-content h1,
+      .formatted-content h2,
+      .formatted-content h3,
+      .formatted-content h4,
+      .formatted-content h5,
+      .formatted-content h6 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      
+      .formatted-content h1 {
+        font-size: 1.75rem;
+        color: #fd4d40;
+        border-bottom: 2px solid #fd4d40;
+        padding-bottom: 0.5rem;
+      }
+      
+      .formatted-content h2 {
+        font-size: 1.5rem;
+        color: #495057;
+      }
+      
+      .formatted-content h3 {
+        font-size: 1.25rem;
+        color: #6c757d;
+      }
+      
+      .formatted-content h4 {
+        font-size: 1.1rem;
+        color: #6c757d;
+      }
+      
+      .formatted-content p {
+        margin-bottom: 1rem;
+      }
+      
+      .formatted-content ul,
+      .formatted-content ol {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+      }
+      
+      .formatted-content li {
+        margin-bottom: 0.5rem;
+      }
+      
+      .formatted-content strong {
+        font-weight: 600;
+        color: #495057;
+      }
+      
+      .formatted-content em {
+        font-style: italic;
+        color: #6c757d;
+      }
+      
+      .formatted-content blockquote {
+        border-left: 4px solid #fd4d40;
+        padding-left: 1rem;
+        margin-left: 0;
+        margin-bottom: 1rem;
+        color: #6c757d;
+        font-style: italic;
+      }
+      
+      .formatted-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+      }
+      
+      .formatted-content table th,
+      .formatted-content table td {
+        border: 1px solid #dee2e6;
+        padding: 0.75rem;
+        text-align: left;
+      }
+      
+      .formatted-content table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+      }
+      
+      .formatted-content pre {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        border-radius: 5px;
+        padding: 1rem;
+        margin: 1rem 0;
+        overflow-x: auto;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+      
+      .formatted-content code {
+        background: #f8f9fa;
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        color: #e83e8c;
+      }
+    </style>
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style="background-color: #B2B2B2;">
+
+    <div class="site-wrap" id="home-section">
+
+     <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+     </div>
+     
+      <header class="site-navbar site-navbar-target" role="banner">
+        <div class="container mb-3">
+          <div class="d-flex align-items-center">
+            <div class="site-logo mr-auto">
+              <a href="index_kk.html">Ai-Toolkit<span class="text-primary">.</span></a>
+            </div>
+            <div class="site-quick-contact d-none d-lg-flex ml-auto ">
+              <div class="d-flex site-info align-items-center mr-5">
+                <span class="block-icon mr-3"><span class="icon-map-marker text-yellow"></span></span>
+                <span>Шерхан Мұртаза атындағы мектеп <br>Тараз</span>
+              </div>
+              <div class="d-flex site-info align-items-center">
+                <span class="block-icon mr-3"><span class="icon-clock-o"></span></span>
+                <span>Әзірлеу кезеңінде</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="menu-wrap d-flex align-items-center">
+            <span class="d-inline-block d-lg-none"><a href="#" class="text-black site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-black"></span></a></span>
+
+            <nav class="site-navigation text-left mr-auto d-none d-lg-block" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto ">
+                <li><a href="index_kk.html" class="nav-link">Басты бет</a></li>
+                <li><a href="chat_kk.html" class="nav-link">AI Көмекші</a></li>
+                <li><a href="test_kk.html" class="nav-link">Тест Генераторы</a></li>
+                <li><a href="img_kk.html" class="nav-link">Контент Іздеу</a></li>
+                <li><a href="contact_kk.html" class="nav-link">Байланыс</a></li>
+                <li class="active"><a href="edu_kk.html" class="nav-link">Білім</a></li>
+                <li><a href="acc_kk.html" class="nav-link">Аккаунт</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <div class="education-section" style="margin-top: 200px;" id="education-section">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-12 text-center">
+              <span class="text-cursive h5 text-red d-block">AI арқылы білім алу</span>
+              <h2 class="text-black">Оқығыңыз келетін тақырыпты енгізіңіз, AI сізге оқу материалын құрастырады.</h2>
+              <p class="lead">Кез келген тақырыпты енгізіңіз, AI сізге оқу үшін қадамдық материалдарды құрастырып, кеңес береді.</p>
+            </div>
+          </div>
+          
+          <!-- Auth Indicator -->
+          <div id="authIndicatorContainer"></div>
+          
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="education-container">
+                <div class="education-header">
+                  <h3 class="text-white m-0">AI Оқу Материалы Генераторы</h3>
+                </div>
+                
+                <div class="input-section">
+                  <div class="form-group">
+                    <label for="topicInput"><strong>Оқу Тақырыбы *</strong></label>
+                    <input type="text" class="form-control" id="topicInput" placeholder="мысалы: Python функциялары, HTML негіздері, Деректер құрылымы, Машиналық оқыту...">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="goalInput"><strong>Оқу Мақсаты</strong></label>
+                    <input type="text" class="form-control" id="goalInput" placeholder="мысалы: Веб-сайт жасау, Алгоритмдерді түсіну, Қарапайым ойын жасау...">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="intensitySelect"><strong>Оқу Қарқыны</strong></label>
+                    <select class="form-control" id="intensitySelect">
+                      <option value="casual">Жеңіл (аптасына 1-2 сағат)</option>
+                      <option value="regular">Қалыпты (аптасына 3-5 сағат)</option>
+                      <option value="intensive">Қарқынды (аптасына 6-10 сағат)</option>
+                      <option value="crash">Жедел курс (аптасына 10+ сағат)</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="levelSelect"><strong>Ағымдағы Деңгей</strong></label>
+                    <select class="form-control" id="levelSelect">
+                      <option value="beginner">Бастаушы (Тәжірибесіз)</option>
+                      <option value="intermediate">Орташа (Біршама тәжірибесі бар)</option>
+                      <option value="advanced">Жетілдірілген (Негіздерді біледі)</option>
+                      <option value="expert">Сарапшы (Шеберлікке жеткісі келеді)</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label><strong>Тіл</strong></label>
+                    <div class="language-selector">
+                      <button class="lang-btn" data-lang="en">Ағылшын</button>
+                      <button class="lang-btn" data-lang="ru">Орыс</button>
+                      <button class="lang-btn active" data-lang="kk">Қазақ</button>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="includePractice">
+                      <label class="form-check-label" for="includePractice">
+                        <strong>Егжей-тегжейлі түсіндірмелері бар практикалық жаттығуларды қосу</strong>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <button class="generate-btn" id="generateBtn">Оқу Материалын Жасау</button>
+                </div>
+                
+                <div class="material-content" id="materialContent">
+                  <!-- Generated material will be displayed here -->
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mt-5">
+            <div class="col-md-4 text-center">
+              <div class="block-2 red">
+                <span class="wrap-icon">
+                  <span class="icon-book"></span>
+                </span>
+                <h2>Құрылымдалған Оқу</h2>
+                <p>Анық прогрессиясы бар ұйымдастырылған оқу материалдарын алыңыз</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="block-2 yellow">
+                <span class="wrap-icon">
+                  <span class="icon-target"></span>
+                </span>
+                <h2>Жекелендірілген</h2>
+                <p>Сіздің деңгейіңізге және мақсаттарыңызға бейімделген материалдар</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="block-2 teal">
+                <span class="wrap-icon">
+                  <span class="icon-download"></span>
+                </span>
+                <h2>Жүктеуге Болады</h2>
+                <p>Материалдарыңызды Word құжаттары ретінде экспорттаңыз</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Overlay -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+          <div class="loading-spinner"></div>
+          <h4>Сіздің Оқу Материалыңыз Құрылуда</h4>
+          <p>AI сіз үшін жекелендірілген оқу мазмұнын жасап жатыр...</p>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4">
+              <h2 class="footer-heading mb-3">Біз туралы</h2>
+              <p class="mb-5">Компьютерлік ғылымды үйрену әркім үшін қызықты және қолжетімді болуы мүмкін деп сенетін адамдар</p>
+
+              <h2 class="footer-heading mb-4">Жаңалықтар</h2>
+              <form action="#" class="d-flex">
+                <input type="text" class="form-control mr-3" placeholder="Email">
+                <input type="submit" class="btn btn-primary" value="Жіберу">
+              </form>
+            </div>
+            <div class="col-lg-8 ml-auto">
+              <div class="row">
+                <div class="col-lg-4 ml-auto">
+                  <h2 class="footer-heading mb-4">Навигация</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="index_kk.html">Басты бет</a></li>
+                    <li><a href="chat_kk.html">AI Көмекші</a></li>
+                    <li><a href="test_kk.html">Тест Генераторы</a></li>
+                    <li><a href="img_kk.html">Контент Іздеу</a></li>
+                    <li><a href="edu_kk.html">Білім</a></li>
+                    <li><a href="acc_kk.html">Аккаунт</a></li>
+                  </ul>
+                </div>
+                <div class="col-lg-4">
+                  <h2 class="footer-heading mb-4">AI Құралдары</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="chat_kk.html">Оқу Көмекшісі</a></li>
+                    <li><a href="test_kk.html">Тест Генераторы</a></li>
+                    <li><a href="edu_kk.html">Оқу Материалдары</a></li>
+                    <li><a href="img_kk.html">Контент Іздеу</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-5 mt-5 text-center">
+            <div class="col-md-12">
+              <div class="border-top pt-5">
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/responsive.js"></script>
+    <!-- Include marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const topicInput = document.getElementById('topicInput');
+        const goalInput = document.getElementById('goalInput');
+        const intensitySelect = document.getElementById('intensitySelect');
+        const levelSelect = document.getElementById('levelSelect');
+        const includePractice = document.getElementById('includePractice');
+        const generateBtn = document.getElementById('generateBtn');
+        const materialContent = document.getElementById('materialContent');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const authIndicatorContainer = document.getElementById('authIndicatorContainer');
+        
+        let currentLanguage = 'kk';
+        let generatedMaterial = null;
+        
+        // Language selection
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentLanguage = this.dataset.lang;
+          });
+        });
+        
+        // Generate learning material
+        generateBtn.addEventListener('click', generateLearningMaterial);
+        
+        async function generateLearningMaterial() {
+          const topic = topicInput.value.trim();
+          
+          if (!topic) {
+            alert('Оқу тақырыбын енгізіңіз');
+            return;
+          }
+          
+          // Show loading overlay
+          loadingOverlay.style.display = 'flex';
+          generateBtn.disabled = true;
+          
+          try {
+            const material = await createLearningMaterial({
+              topic: topic,
+              goal: goalInput.value.trim(),
+              intensity: intensitySelect.value,
+              level: levelSelect.value,
+              language: currentLanguage,
+              includePractice: includePractice.checked
+            });
+            
+            generatedMaterial = material;
+            displayMaterial(material);
+            
+          } catch (error) {
+            console.error('Error generating material:', error);
+            materialContent.innerHTML = `
+              <div class="alert alert-danger">
+                <h4>Материалды Жасау Қатесі</h4>
+                <p>Кешіріңіз, оқу материалын жасау кезінде қате орын алды. Қайталап көріңіз.</p>
+                <p><small>Қате: ${error.message}</small></p>
+              </div>
+            `;
+            materialContent.style.display = 'block';
+          } finally {
+            loadingOverlay.style.display = 'none';
+            generateBtn.disabled = false;
+          }
+        }
+        
+        async function createLearningMaterial(params) {
+          const prompt = createPrompt(params);
+          
+          try {
+            const response = await fetch('/api/chat', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                messages: [
+                  {
+                    role: "user",
+                    parts: [{ text: prompt }]
+                  }
+                ]
+              })
+            });
+            
+            if (!response.ok) {
+              throw new Error(`Server error: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.choices && data.choices[0] && data.choices[0].message) {
+              return parseMaterialResponse(data.choices[0].message.content, params);
+            } else {
+              throw new Error('Invalid response format from AI');
+            }
+          } catch (error) {
+            // Fallback to local generation if API fails
+            console.log('API failed, using fallback generation');
+            return generateFallbackMaterial(params);
+          }
+        }
+        
+        function createPrompt(params) {
+          const languageNames = {
+            'en': 'English',
+            'ru': 'Russian',
+            'kk': 'Kazakh'
+          };
+          
+          const levelNames = {
+            'beginner': 'complete beginner',
+            'intermediate': 'intermediate learner',
+            'advanced': 'advanced learner',
+            'expert': 'expert'
+          };
+          
+          const intensityNames = {
+            'casual': '1-2 hours per week',
+            'regular': '3-5 hours per week',
+            'intensive': '6-10 hours per week',
+            'crash': '10+ hours per week'
+          };
+          
+          return `Create a comprehensive learning material about "${params.topic}" in ${languageNames[params.language]}.
+          
+          Student Profile:
+          - Level: ${levelNames[params.level]}
+          - Time available: ${intensityNames[params.intensity]}
+          - Learning goal: ${params.goal || 'General understanding of the topic'}
+          - Language: ${languageNames[params.language]}
+          ${params.includePractice ? '- Include practical exercises with line-by-line explanations' : ''}
+          
+          Please structure the material using Markdown format with proper headings, lists, and code blocks.
+          
+          Format requirements:
+          - Use # for main headings
+          - Use ## for section headings  
+          - Use ### for subheadings
+          - Use bullet points for lists
+          - Use **bold** for emphasis
+          - Use code blocks with language specification
+          - Ensure proper spacing between sections
+          
+          Structure:
+          1. Introduction and overview
+          2. Learning objectives  
+          3. Step-by-step learning path
+          4. Detailed content with examples
+          ${params.includePractice ? '5. Practical exercises with explanations' : ''}
+          6. Common mistakes and tips
+          7. Next steps and resources
+          
+          Make the content engaging, well-structured, and appropriate for ${levelNames[params.level]} level.`;
+        }
+        
+        function parseMaterialResponse(response, params) {
+          return {
+            topic: params.topic,
+            goal: params.goal,
+            level: params.level,
+            intensity: params.intensity,
+            language: params.language,
+            includePractice: params.includePractice,
+            content: response,
+            timestamp: new Date().toISOString()
+          };
+        }
+        
+        function generateFallbackMaterial(params) {
+          const practiceContent = params.includePractice ? `
+## 🧪 Практикалық Жаттығулар
+
+### 1-жаттығу: Негізгі Іске Асыру
+Негізгі тұжырымдаманы көрсететін қарапайым бағдарлама жасаңыз.
+
+\`\`\`python
+# Бұл үлгі код блогы
+def hello_world():
+    print("Hello, World!")  # Бұл хабарды шығарады
+    
+hello_world()  # Функцияны шақыру
+\`\`\`
+
+**Түсіндірме:**
+- 2-жол: hello_world деп аталатын функцияны анықтау
+- 3-жол: Консольге сәлем хабарды шығару  
+- 5-жол: Орындау үшін функцияны шақыру
+          ` : '';
+          
+          return {
+            topic: params.topic,
+            goal: params.goal,
+            level: params.level,
+            intensity: params.intensity,
+            language: params.language,
+            includePractice: params.includePractice,
+            content: `# Оқу Материалы: ${params.topic}
+
+## Кіріспе
+Бұл жан-жақты оқу материалы **${params.topic}** шеберлігіне жетуге көмектеседі. **${params.level}** деңгейдегі студенттер үшін **${params.intensity}** оқу қарқынымен әзірленген.
+
+## Оқу Мақсаттары
+Осы материалды аяқтағаннан кейін сіз мыналарды істей аласыз:
+- ${params.topic} негізгі тұжырымдамаларын түсіну
+- Білімді практикалық жағдайларда қолдану  
+- Кеңейтілген тақырыптар үшін мықты негіз құру
+- ${params.goal ? params.goal : 'Байланысты технологиялармен сенімді жұмыс істеу'}
+
+## Қадамдық Оқу Жолы
+
+### 1-қадам: Негізгі Тұжырымдамалар (2 сағат)
+- Негізгі терминологияға кіріспе
+- Фундаменталды принциптер мен теориялар
+- Негізгі компоненттерге шолу
+
+### 2-қадам: Негізгі Компоненттер (3 сағат)  
+- Негізгі элементтерді егжей-тегжейлі зерттеу
+- Әртүрлі бөліктердің бір-бірімен қалай жұмыс істеуі
+- Практикалық мысалдар мен қолдану жағдайлары
+
+### 3-қадам: Практикалық Қолдану (4 сағат)
+- Нақты жағдайларда іске асыру мысалдары
+- Қолданбалы жаттығулар
+- Жиі кездесетін жағдайлар мен шешімдер
+
+${practiceContent}
+
+## Жиі Кездесетін Қателер мен Кеңестер
+
+### ⚠️ Жиі Кездесетін Қателер
+- Негізгі тұжырымдамаларды асықпай өту
+- Жеткілікті жаттығу жасамау
+- Жөндеу жаттығуларын өткізіп жіберу
+
+### 💡 Сәттілік Кеңестері  
+- Кішігірім жобалармен үнемі жаттығу
+- Тәжірибе жасаудан тайынбау
+- Қажет болғанда көмек сұрау
+- Оқуды қайталау және нығайту
+
+## Келесі Қадамдар
+Осы материалды аяқтағаннан кейін мыналарды қарастырыңыз:
+- Байланысты кеңейтілген тақырыптарды зерттеу  
+- Жан-жақты жоба құру
+- Тиісті қауымдастықтарға қосылу
+- Үздіксіз жаттығу және оқу
+            `,
+            timestamp: new Date().toISOString()
+          };
+        }
+        
+        function displayMaterial(material) {
+          // Convert Markdown to HTML
+          const htmlContent = marked.parse(material.content);
+          
+          let html = `
+            <div class="text-center mb-4">
+              <h3>Оқу Материалы: ${material.topic}</h3>
+              <p class="text-muted">${material.level} деңгейі үшін жасалған • ${material.intensity} қарқыны • ${material.language.toUpperCase()}</p>
+              ${material.goal ? `<p><strong>Мақсат:</strong> ${material.goal}</p>` : ''}
+            </div>
+            
+            <div class="material-section">
+              <h4>📚 Оқу Материалы</h4>
+              <div class="formatted-content">
+                ${htmlContent}
+              </div>
+            </div>
+            
+            <div class="text-center mt-4">
+              <button class="download-btn" id="downloadWordBtn">
+                <span class="icon-download"></span> Word ретінде жүктеу
+              </button>
+              <button class="new-material-btn" id="newMaterialBtn">
+                <span class="icon-plus"></span> Жаңа Материал Жасау
+              </button>
+            </div>
+          `;
+          
+          materialContent.innerHTML = html;
+          materialContent.style.display = 'block';
+          
+          // Add event listeners for buttons
+          document.getElementById('downloadWordBtn').addEventListener('click', downloadAsWord);
+          document.getElementById('newMaterialBtn').addEventListener('click', createNewMaterial);
+          
+          // Scroll to material
+          materialContent.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function downloadAsWord() {
+          alert('Word құжаты ретінде жүктеу әзірлеу кезеңінде. Материалды бұл беттен көшіріп алуға болады.');
+        }
+        
+        function createNewMaterial() {
+          materialContent.style.display = 'none';
+          materialContent.innerHTML = '';
+          topicInput.value = '';
+          goalInput.value = '';
+          intensitySelect.value = 'casual';
+          levelSelect.value = 'beginner';
+          includePractice.checked = false;
+          topicInput.focus();
+        }
+        
+        // Check authentication status
+        function checkAuthStatus() {
+          const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+          if (user.email) {
+            authIndicatorContainer.innerHTML = `
+              <div class="auth-indicator">
+                <span class="icon-user"></span> ${user.email}
+              </div>
+            `;
+          } else {
+            authIndicatorContainer.innerHTML = `
+              <div class="login-prompt">
+                <h4>Толық қолжетімділік үшін жүйеге кіріңіз</h4>
+                <p>Жүйеге кіргеннен кейін сіз оқу материалдарыңызды сақтай аласыз және жекелендірілген ұсыныстар ала аласыз.</p>
+                <a href="acc_kk.html" class="btn btn-primary">Жүйеге кіру / Тіркелу</a>
+              </div>
+            `;
+          }
+        }
+        
+        checkAuthStatus();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Генератор тестов - Ai-Toolkit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700|Indie+Flower" rel="stylesheet">
+    
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+      /* Test Generator specific styles */
+      .test-generator-section {
+        background-color: #B2B2B2;
+        padding: 2rem 0;
+      }
+      
+      .test-container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+      
+      .test-header {
+        background: #fd4d40;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+      
+      .test-input-section {
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .topic-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        outline: none;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .topic-input:focus {
+        border-color: #fd4d40;
+      }
+      
+      .generate-btn {
+        background-color: #fd4d40;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+      }
+      
+      .generate-btn:hover {
+        background-color: #e04438;
+      }
+      
+      .test-content {
+        padding: 1.5rem;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+      
+      .question-item {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid #fd4d40;
+      }
+      
+      .question-number {
+        background: #fd4d40;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+      
+      .options-list {
+        margin-top: 1rem;
+      }
+      
+      .option-item {
+        background: white;
+        border: 1px solid #e9ecef;
+        border-radius: 5px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      
+      .option-item:hover {
+        border-color: #fd4d40;
+        background: #fff5f5;
+      }
+      
+      .option-item.selected {
+        border-color: #3498db;
+        background: #f0f8ff;
+      }
+      
+      .option-item.correct {
+        border-color: #16c3b0;
+        background: #f0f9f7;
+      }
+      
+      .option-item.incorrect {
+        border-color: #fd4d40;
+        background: #fff5f5;
+      }
+      
+      .test-results {
+        padding: 1.5rem;
+        border-top: 1px solid #eee;
+        display: none;
+      }
+      
+      .result-item {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        border-radius: 5px;
+      }
+      
+      .result-correct {
+        background: #f0f9f7;
+        border-left: 4px solid #16c3b0;
+      }
+      
+      .result-incorrect {
+        background: #fff5f5;
+        border-left: 4px solid #fd4d40;
+      }
+      
+      .score-display {
+        text-align: center;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+      }
+      
+      .score-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #fd4d40;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0 auto 1rem;
+      }
+      
+      .generating-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .generating-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #fd4d40;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .submit-btn {
+        background-color: #16c3b0;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        margin-top: 1rem;
+      }
+      
+      .submit-btn:hover {
+        background-color: #14b3a1;
+      }
+      
+      .new-test-btn {
+        background-color: #fdb62f;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        margin-top: 1rem;
+      }
+      
+      .new-test-btn:hover {
+        background-color: #eca61f;
+      }
+
+      .experience-gained {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .level-up {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: bold;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+    </style>
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style="background-color: #B2B2B2;">
+
+    <div class="site-wrap" id="home-section">
+
+     <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+     </div>
+     
+      <!-- Навигация -->
+      <header class="site-navbar site-navbar-target" role="banner">
+        <div class="container mb-3">
+          <div class="d-flex align-items-center">
+            <div class="site-logo mr-auto">
+              <a href="index_ru.html">Ai-Toolkit<span class="text-primary">.</span></a>
+            </div>
+            <div class="site-quick-contact d-none d-lg-flex ml-auto ">
+              <div class="d-flex site-info align-items-center mr-5">
+                <span class="block-icon mr-3"><span class="icon-map-marker text-yellow"></span></span>
+                <span>Школа имени Шерхана Муртазы <br>Тараз</span>
+              </div>
+              <div class="d-flex site-info align-items-center">
+                <span class="block-icon mr-3"><span class="icon-clock-o"></span></span>
+                <span>В разработке</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="menu-wrap d-flex align-items-center">
+            <span class="d-inline-block d-lg-none"><a href="#" class="text-black site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-black"></span></a></span>
+
+            <nav class="site-navigation text-left mr-auto d-none d-lg-block" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto ">
+                  <li><a href="index_ru.html" class="nav-link">Главная</a></li>
+                  <li><a href="chat_ru.html" class="nav-link">AI Ассистент</a></li>
+                  <li class="active"><a href="test_ru.html" class="nav-link">Генератор тестов</a></li>
+                  <li><a href="img_ru.html" class="nav-link">Поиск контента</a></li>
+                  <li><a href="contact_ru.html" class="nav-link">Контакты</a></li>
+                  <li><a href="edu_ru.html" class="nav-link">Обучение</a></li>
+                  <li><a href="acc_ru.html" class="nav-link">Аккаунт</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <!-- Секция генератора тестов -->
+      <div class="test-generator-section" style="margin-top: 200px;">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-12 text-center">
+              <span class="text-cursive h5 text-red d-block">AI Генератор Тестов</span>
+              <h2 class="text-black">Создавайте пользовательские тесты за секунды</h2>
+              <p class="lead">Генерируйте персонализированные тесты по любой теме компьютерных наук с помощью AI</p>
+            </div>
+          </div>
+          
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="test-container">
+                <div class="test-header">
+                  <h3 class="text-white m-0">AI Генератор Тестов</h3>
+                </div>
+                
+                <div class="test-input-section">
+                  <input type="text" class="topic-input" id="topicInput" placeholder="Введите тему компьютерных наук (например, циклы Python, основы HTML, алгоритмы)...">
+                  <div class="text-center">
+                    <button class="generate-btn" id="generateBtn">Сгенерировать тест</button>
+                  </div>
+                </div>
+                
+                <div class="test-content" id="testContent">
+                  <div class="text-center text-muted py-5">
+                    <p>Введите тему выше и нажмите "Сгенерировать тест" для создания вашего пользовательского теста</p>
+                  </div>
+                </div>
+                
+                <div class="test-results" id="testResults">
+                  <!-- Results will be displayed here -->
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mt-5">
+            <div class="col-md-4 text-center">
+              <div class="block-2 red">
+                <span class="wrap-icon">
+                  <span class="icon-file-text"></span>
+                </span>
+                <h2>Пользовательские тесты</h2>
+                <p>Генерируйте тесты по любой теме компьютерных наук мгновенно</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="block-2 yellow">
+                <span class="wrap-icon">
+                  <span class="icon-check-circle"></span>
+                </span>
+                <h2>Мгновенная обратная связь</h2>
+                <p>Получайте подробные результаты с правильными и неправильными ответами</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="block-2 teal">
+                <span class="wrap-icon">
+                  <span class="icon-trending-up"></span>
+                </span>
+                <h2>Отслеживание прогресса</h2>
+                <p>Отслеживайте ваш учебный прогресс с персонализированными тестами</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Оверлей загрузки -->
+      <div class="generating-overlay" id="generatingOverlay">
+        <div class="generating-content">
+          <div class="loading-spinner"></div>
+          <h4>Генерация вашего теста</h4>
+          <p>AI создает персонализированные вопросы для вас...</p>
+        </div>
+      </div>
+
+      <!-- Футер -->
+      <footer class="site-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4">
+              <h2 class="footer-heading mb-3">О нас</h2>
+              <p class="mb-5">Люди, которые верят, что изучение компьютерных наук может быть веселым и доступным для всех</p>
+
+              <h2 class="footer-heading mb-4">Рассылка</h2>
+              <form action="#" class="d-flex">
+                <input type="text" class="form-control mr-3" placeholder="Email">
+                <input type="submit" class="btn btn-primary" value="Отправить">
+              </form>
+            </div>
+            <div class="col-lg-8 ml-auto">
+              <div class="row">
+                <div class="col-lg-4 ml-auto">
+                  <h2 class="footer-heading mb-4">Навигация</h2>
+                  <ul class="list-unstyled">
+                  <li><a href="index_ru.html" class="nav-link">Главная</a></li>
+                  <li><a href="chat_ru.html" class="nav-link">AI Ассистент</a></li>
+                  <li class="active"><a href="test_ru.html" class="nav-link">Генератор тестов</a></li>
+                  <li><a href="img_ru.html" class="nav-link">Поиск контента</a></li>
+                  <li><a href="contact_ru.html" class="nav-link">Контакты</a></li>
+                  <li><a href="edu_ru.html" class="nav-link">Обучение</a></li>
+                  <li><a href="acc_ru.html" class="nav-link">Аккаунт</a></li>
+                  </ul>
+                </div>
+                <div class="col-lg-4">
+                  <h2 class="footer-heading mb-4">AI Инструменты</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="chat_ru.html">Учебный ассистент</a></li>
+                    <li><a href="test_ru.html">Генератор тестов</a></li>
+                    <li><a href="#">Примеры кода</a></li>
+                    <li><a href="#">Отслеживание прогресса</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-5 mt-5 text-center">
+            <div class="col-md-12">
+              <div class="border-top pt-5">
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/responsive.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const topicInput = document.getElementById('topicInput');
+    const generateBtn = document.getElementById('generateBtn');
+    const testContent = document.getElementById('testContent');
+    const testResults = document.getElementById('testResults');
+    const generatingOverlay = document.getElementById('generatingOverlay');
+    
+    let currentTest = null;
+    let userAnswers = [];
+    
+    // Функция для генерации теста через сервер
+    async function generateTest() {
+      const topic = topicInput.value.trim();
+      
+      if (!topic) {
+        alert('Пожалуйста, введите тему для вашего теста');
+        return;
+      }
+      
+      // Показать оверлей загрузки
+      generatingOverlay.style.display = 'flex';
+      
+      try {
+        const token = localStorage.getItem('aiToolkitToken');
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+        
+        const response = await fetch('/api/generate-test', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({ topic })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Ошибка сервера: ${response.status}`);
+        }
+        
+        const testData = await response.json();
+        currentTest = testData;
+        userAnswers = new Array(currentTest.questions.length).fill(null);
+        
+        // Отобразить тест
+        displayTest(currentTest);
+        
+      } catch (error) {
+        console.error('Ошибка генерации теста:', error);
+        // Fallback: использовать локальную генерацию
+        currentTest = generateTestQuestions(topic);
+        userAnswers = new Array(currentTest.questions.length).fill(null);
+        displayTest(currentTest);
+      } finally {
+        // Скрыть оверлей загрузки
+        generatingOverlay.style.display = 'none';
+      }
+    }
+    
+    // Функция для локальной генерации тестовых вопросов (fallback)
+    function generateTestQuestions(topic) {
+      const testTemplates = {
+        'python': [
+          {
+            question: "Что выведет: print(2 + 3 * 4)",
+            options: ["20", "14", "24", "Ошибка"],
+            correct: 1
+          },
+          {
+            question: "Какое ключевое слово используется для определения функции в Python?",
+            options: ["function", "def", "define", "func"],
+            correct: 1
+          },
+          {
+            question: "Как создать список в Python?",
+            options: ["list = ()", "list = []", "list = {}", "list = <>"],
+            correct: 1
+          },
+          {
+            question: "Что делает функция 'len()' в Python?",
+            options: ["Преобразует в нижний регистр", "Возвращает длину", "Округляет число", "Импортирует модуль"],
+            correct: 1
+          },
+          {
+            question: "Какой оператор используется для возведения в степень в Python?",
+            options: ["^", "**", "^^", "//"],
+            correct: 1
+          }
+        ],
+        'algorithms': [
+          {
+            question: "Какая временная сложность у бинарного поиска?",
+            options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+            correct: 1
+          },
+          {
+            question: "Какая структура данных использует принцип LIFO (Last In First Out)?",
+            options: ["Очередь", "Стек", "Массив", "Связный список"],
+            correct: 1
+          },
+          {
+            question: "Какое главное преимущество использования хэш-таблиц?",
+            options: [
+              "Постоянная временная сложность для операций поиска",
+              "Автоматическая сортировка элементов",
+              "Неограниченная емкость хранения",
+              "Встроенное шифрование"
+            ],
+            correct: 0
+          },
+          {
+            question: "Какой алгоритм сортировки имеет лучшую временную сложность в худшем случае?",
+            options: ["Сортировка пузырьком", "Быстрая сортировка", "Сортировка слиянием", "Сортировка выбором"],
+            correct: 2
+          },
+          {
+            question: "Что означает DFS в алгоритмах графов?",
+            options: ["Поиск в глубину", "Структура потока данных", "Цифровая файловая система", "Динамический поиск функций"],
+            correct: 0
+          }
+        ]
+      };
+      
+      // Выбор шаблона на основе темы
+      let selectedTemplate = 'python';
+      if (topic.toLowerCase().includes('html')) selectedTemplate = 'html';
+      if (topic.toLowerCase().includes('algorithm')) selectedTemplate = 'algorithms';
+      if (topic.toLowerCase().includes('java')) selectedTemplate = 'python';
+      
+      return {
+        topic: topic,
+        questions: testTemplates[selectedTemplate] || testTemplates['python']
+      };
+    }
+    
+    // Функция для отображения теста
+    function displayTest(test) {
+      let testHTML = `
+        <div class="text-center mb-4">
+          <h4>Тест по: ${test.topic}</h4>
+          <p>Ответьте на все вопросы и нажмите "Отправить тест" когда закончите</p>
+        </div>
+      `;
+      
+      test.questions.forEach((q, index) => {
+        testHTML += `
+          <div class="question-item" data-question-index="${index}">
+            <div class="question-header">
+              <span class="question-number">${index + 1}</span>
+              <strong>${q.question}</strong>
+            </div>
+            <div class="options-list">
+        `;
+        
+        q.options.forEach((option, optIndex) => {
+          testHTML += `
+            <div class="option-item" data-option-index="${optIndex}">
+              ${option}
+            </div>
+          `;
+        });
+        
+        testHTML += `
+            </div>
+          </div>
+        `;
+      });
+      
+      testHTML += `
+        <div class="text-center">
+          <button class="submit-btn" id="submitTest">Отправить тест</button>
+        </div>
+      `;
+      
+      testContent.innerHTML = testHTML;
+      
+      // Добавить обработчики событий для вариантов ответов
+      document.querySelectorAll('.option-item').forEach(option => {
+        option.addEventListener('click', function() {
+          const questionItem = this.closest('.question-item');
+          const questionIndex = parseInt(questionItem.dataset.questionIndex);
+          const optionIndex = parseInt(this.dataset.optionIndex);
+          
+          // Снять выделение с других вариантов в этом вопросе
+          questionItem.querySelectorAll('.option-item').forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          
+          // Выделить выбранный вариант
+          this.classList.add('selected');
+          
+          // Сохранить ответ пользователя
+          userAnswers[questionIndex] = optionIndex;
+        });
+      });
+      
+      // Добавить обработчик для кнопки отправки
+      document.getElementById('submitTest').addEventListener('click', submitTest);
+    }
+    
+    // Функция для отправки теста и показа результатов
+    async function submitTest() {
+      // Проверить, что все вопросы отвечены
+      if (userAnswers.includes(null)) {
+        alert('Пожалуйста, ответьте на все вопросы перед отправкой');
+        return;
+      }
+      
+      // Вычислить результаты
+      let correctCount = 0;
+      const results = [];
+      
+      currentTest.questions.forEach((q, index) => {
+        const isCorrect = userAnswers[index] === q.correct;
+        if (isCorrect) correctCount++;
+        
+        results.push({
+          question: q.question,
+          userAnswer: q.options[userAnswers[index]],
+          correctAnswer: q.options[q.correct],
+          isCorrect: isCorrect
+        });
+      });
+      
+      const score = Math.round((correctCount / currentTest.questions.length) * 100);
+      
+      // Сохранить результаты через API и получить данные об опыте
+      const saveResult = await saveTestResults(correctCount, currentTest.questions.length);
+      
+      // Показать результаты
+      displayResults(score, results, saveResult);
+    }
+    
+    // Функция для сохранения результатов теста
+    async function saveTestResults(correctCount, totalQuestions) {
+      try {
+        const token = localStorage.getItem('aiToolkitToken');
+        if (!token) {
+          console.log('Пользователь не вошел в систему, пропуск сохранения результатов');
+          return null;
+        }
+        
+        const response = await fetch('/api/save-test-result', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            topic: currentTest.topic,
+            score: correctCount,
+            totalQuestions: totalQuestions
+          })
+        });
+        
+        if (response.ok) {
+          const resultData = await response.json();
+          console.log('Результаты теста сохранены:', resultData);
+          
+          // Проверяем успешность операции
+          if (resultData.success) {
+            return resultData;
+          } else {
+            console.error('Не удалось сохранить результаты теста:', resultData.error);
+            return null;
+          }
+        } else {
+          console.error('Не удалось сохранить результаты теста:', response.status);
+          return null;
+        }
+      } catch (error) {
+        console.error('Ошибка сохранения результатов теста:', error);
+        return null;
+      }
+    }
+    
+    // Функция для отображения результатов
+    function displayResults(score, results, saveResult) {
+      let resultsHTML = `
+        <div class="score-display">
+          <div class="score-circle">${score}%</div>
+          <h4>Результаты теста</h4>
+          <p>Вы набрали ${score}% по тесту о ${currentTest.topic}</p>
+      `;
+      
+      // Добавляем информацию о полученном опыте только если пользователь авторизован и сохранение прошло успешно
+      if (saveResult && saveResult.success) {
+        // Показываем полученный опыт
+        if (saveResult.experience) {
+          resultsHTML += `
+            <div class="experience-gained">
+              🎉 +${saveResult.experience} XP Получено!
+            </div>
+          `;
+        }
+        
+        // Показываем информацию об уровне
+        if (saveResult.level) {
+          const oldLevel = localStorage.getItem('currentLevel') || 1;
+          const newLevel = saveResult.level;
+          
+          if (newLevel > oldLevel) {
+            resultsHTML += `
+              <div class="level-up">
+                🚀 Повышение уровня! Теперь вы Уровень ${newLevel}
+              </div>
+            `;
+            // Обновляем уровень в localStorage
+            localStorage.setItem('currentLevel', newLevel);
+          } else {
+            resultsHTML += `
+              <div class="experience-gained">
+                📊 Текущий уровень: ${newLevel}
+              </div>
+            `;
+          }
+        }
+        
+        // Показываем информацию о прогрессе
+        if (saveResult.levelInfo) {
+          const levelInfo = saveResult.levelInfo;
+          resultsHTML += `
+            <div class="experience-gained" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+              📈 Прогресс: ${levelInfo.currentLevelExp || 0}/${levelInfo.expToNextLevel + (levelInfo.currentLevelExp || 0)} XP до Уровня ${(levelInfo.level || 1) + 1}
+            </div>
+          `;
+        }
+      } else {
+        resultsHTML += `
+          <div class="experience-gained" style="background: #6c757d;">
+            🔐 <a href="acc_ru.html" style="color: white; text-decoration: underline;">Войдите</a> чтобы отслеживать ваш прогресс и зарабатывать XP!
+          </div>
+        `;
+      }
+      
+      resultsHTML += `</div><h5>Подробные результаты:</h5>`;
+      
+      results.forEach((result, index) => {
+        resultsHTML += `
+          <div class="result-item ${result.isCorrect ? 'result-correct' : 'result-incorrect'}">
+            <div class="question-number">${index + 1}</div>
+            <strong>${result.question}</strong><br>
+            <span>Ваш ответ: ${result.userAnswer}</span><br>
+            <span>Правильный ответ: ${result.correctAnswer}</span>
+          </div>
+        `;
+      });
+      
+      resultsHTML += `
+        <div class="text-center">
+          <button class="new-test-btn" id="newTestBtn">Создать новый тест</button>
+        </div>
+      `;
+      
+      testResults.innerHTML = resultsHTML;
+      testResults.style.display = 'block';
+      
+      // Обновляем индикатор авторизации если пользователь авторизован
+      if (saveResult && saveResult.success) {
+        updateAuthIndicator();
+      }
+      
+      // Добавить обработчик для кнопки нового теста
+      document.getElementById('newTestBtn').addEventListener('click', function() {
+        topicInput.value = '';
+        testContent.innerHTML = '<div class="text-center text-muted py-5"><p>Введите тему выше и нажмите "Сгенерировать тест" для создания вашего пользовательского теста</p></div>';
+        testResults.style.display = 'none';
+        currentTest = null;
+        userAnswers = [];
+      });
+    }
+    
+    // Функция для обновления индикатора авторизации
+    function updateAuthIndicator() {
+      const savedUser = localStorage.getItem('aiToolkitUser');
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+        const authIndicator = document.getElementById('authIndicator');
+        
+        if (authIndicator) {
+          authIndicator.innerHTML = `👤 ${user.username} (Ур ${user.level})`;
+        } else {
+          showAuthIndicator(user);
+        }
+      }
+    }
+    
+    // Обработчики событий
+    generateBtn.addEventListener('click', generateTest);
+    
+    topicInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        generateTest();
+      }
+    });
+
+    // Интеграция с системой аккаунтов
+    function initializeAccountIntegration() {
+      const savedUser = localStorage.getItem('aiToolkitUser');
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+        
+        // Добавляем userEmail в запросы к API
+        window.userEmail = user.email;
+        
+        // Показываем индикатор авторизации
+        showAuthIndicator(user);
+      }
+    }
+
+    function showAuthIndicator(user) {
+      // Добавляем индикатор в навигацию
+      const nav = document.querySelector('.site-navigation');
+      if (nav && !document.getElementById('authIndicator')) {
+        const authIndicator = document.createElement('div');
+        authIndicator.id = 'authIndicator';
+        authIndicator.style.cssText = `
+          position: fixed;
+          top: 100px;
+          right: 20px;
+          background: #28a745;
+          color: white;
+          padding: 5px 10px;
+          border-radius: 15px;
+          font-size: 12px;
+          z-index: 1000;
+        `;
+        authIndicator.innerHTML = `👤 ${user.username} (Ур ${user.level})`;
+        document.body.appendChild(authIndicator);
+      }
+    }
+
+    // Инициализация при загрузке страницы
+    initializeAccountIntegration();
+  });
+</script>
+  </body>
+</html>

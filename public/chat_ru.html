@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>AI Ассистент - Ai-Toolkit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700|Indie+Flower" rel="stylesheet">
+    
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+      /* Chat specific styles */
+      .chat-container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .chat-header {
+        background: #fd4d40;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+      
+      .chat-messages {
+        flex: 1;
+        padding: 1.5rem;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+      }
+      
+      .message {
+        margin-bottom: 1rem;
+        display: flex;
+      }
+      
+      .user-message {
+        justify-content: flex-end;
+      }
+      
+      .bot-message {
+        justify-content: flex-start;
+      }
+      
+      .message-bubble {
+        max-width: 70%;
+        padding: 0.75rem 1rem;
+        border-radius: 18px;
+        position: relative;
+      }
+      
+      .user-message .message-bubble {
+        background-color: #fd4d40;
+        color: white;
+        border-bottom-right-radius: 4px;
+      }
+      
+      .bot-message .message-bubble {
+        background-color: white;
+        color: #333;
+        border-bottom-left-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      .message-time {
+        font-size: 0.7rem;
+        opacity: 0.7;
+        margin-top: 0.25rem;
+      }
+      
+      .chat-input-container {
+        display: flex;
+        padding: 1rem;
+        background-color: white;
+        border-top: 1px solid #eee;
+      }
+      
+      .chat-input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        outline: none;
+        font-size: 1rem;
+      }
+      
+      .chat-input:focus {
+        border-color: #fd4d40;
+      }
+      
+      .send-button {
+        background-color: #fd4d40;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        margin-left: 0.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s;
+      }
+      
+      .send-button:hover {
+        background-color: #e04438;
+      }
+      
+      .typing-indicator {
+        display: none;
+        padding: 0.75rem 1rem;
+        background-color: white;
+        border-radius: 18px;
+        border-bottom-left-radius: 4px;
+        max-width: 70%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      .typing-dots {
+        display: flex;
+      }
+      
+      .typing-dots span {
+        height: 8px;
+        width: 8px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 2px;
+        animation: typing 1.4s infinite ease-in-out;
+      }
+      
+      .typing-dots span:nth-child(1) {
+        animation-delay: 0s;
+      }
+      
+      .typing-dots span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      
+      .typing-dots span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      
+      @keyframes typing {
+        0%, 60%, 100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-5px);
+        }
+      }
+      
+      .auth-indicator {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #28a745;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      
+      .login-prompt {
+        text-align: center;
+        padding: 20px;
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style="background-color: #B2B2B2;">
+
+    
+    <div class="site-wrap" id="home-section">
+
+      <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+      </div>
+
+      <header class="site-navbar site-navbar-target" role="banner">
+
+        <div class="container mb-3">
+          <div class="d-flex align-items-center">
+            <div class="site-logo mr-auto">
+              <a href="index_ru.html">Ai-Toolkit<span class="text-primary">.</span></a>
+            </div>
+            <div class="site-quick-contact d-none d-lg-flex ml-auto ">
+              <div class="d-flex site-info align-items-center mr-5">
+                <span class="block-icon mr-3"><span class="icon-map-marker text-yellow"></span></span>
+                <span>Школа имени Шерхана Муртазы <br>Тараз</span>
+              </div>
+              <div class="d-flex site-info align-items-center">
+                <span class="block-icon mr-3"><span class="icon-clock-o"></span></span>
+                <span>В разработке</span>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="menu-wrap d-flex align-items-center">
+            <span class="d-inline-block d-lg-none"><a href="#" class="text-black site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-black"></span></a></span>
+
+              <nav class="site-navigation text-left mr-auto d-none d-lg-block" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav mr-auto ">
+                  <li><a href="index_ru.html" class="nav-link">Главная</a></li>
+                  <li class="active"><a href="chat_ru.html" class="nav-link">AI Ассистент</a></li>
+                  <li><a href="test_ru.html" class="nav-link">Генератор тестов</a></li>
+                  <li><a href="img_ru.html" class="nav-link">Поиск контента</a></li>
+                  <li><a href="contact_ru.html" class="nav-link">Контакты</a></li>
+                  <li><a href="edu_ru.html" class="nav-link">Обучение</a></li>
+                  <li><a href="acc_ru.html" class="nav-link">Аккаунт</a></li>
+                </ul>
+              </nav>
+          </div>
+        </div>
+      </header>
+
+      <div style="background-color: #B2B2B2; margin-top: 200px;" id="assistant-section">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-12 text-center">
+              <span class="text-cursive h5 text-red d-block">AI Учебный Ассистент</span>
+              <h2 class="text-black">Спросите меня о чем угодно в компьютерных науках</h2>
+              <p class="lead">Я здесь, чтобы помочь вам изучить программирование, алгоритмы и все, что связано с компьютерными науками!</p>
+            </div>
+          </div>
+          
+          <!-- Auth Indicator -->
+          <div id="authIndicatorContainer"></div>
+          
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="chat-container">
+                <div class="chat-header">
+                  <h3 class="text-white m-0">AI Учебный Ассистент</h3>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                  <div class="message bot-message">
+                    <div class="message-bubble">
+                      <p>Привет! Я ваш AI учебный ассистент. Я могу помочь вам с компьютерными науками, программированием, алгоритмами и другими школьными предметами. Чему бы вы хотели научиться сегодня?</p>
+                      <div class="message-time">Только что</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="typing-indicator" id="typingIndicator">
+                  <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+                
+                <div class="chat-input-container">
+                  <input type="text" class="chat-input" id="chatInput" placeholder="Введите ваш вопрос о компьютерных науках здесь...">
+                  <button class="send-button" id="sendButton">
+                    <span class="icon-send"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mt-5">
+            <div class="col-md-4 text-center">
+              <div class="block-2 red">
+                <span class="wrap-icon">
+                  <span class="icon-help"></span>
+                </span>
+                <h2>Мгновенная помощь</h2>
+                <p>Получайте немедленные ответы на ваши вопросы по программированию</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="block-2 yellow">
+                <span class="wrap-icon">
+                  <span class="icon-code"></span>
+                </span>
+                <h2>Примеры кода</h2>
+                <p>Учитесь с практическими примерами программирования</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="block-2 teal">
+                <span class="wrap-icon">
+                  <span class="icon-school"></span>
+                </span>
+                <h2>Поддержка учебной программы</h2>
+                <p>Соответствует вашей школьной программе по компьютерным наукам</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-section bg-white" id="features">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-12 text-center">
+              <span class="text-cursive h5 text-red d-block">Как это работает</span>
+              <h2 class="text-black">Изучайте компьютерные науки с AI</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+              <div class="package text-center bg-light">
+                <span class="img-wrap"><img src="images/flaticon/svg/001-jigsaw.svg" alt="Image" class="img-fluid"></span>
+                <h3 class="text-teal">Концепции программирования</h3>
+                <p>Поймите переменные, циклы, функции и объектно-ориентированное программирование с четкими объяснениями</p>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4 mb-lg-0">
+              <div class="package text-center bg-light">
+                <span class="img-wrap"><img src="images/flaticon/svg/002-target.svg" alt="Image" class="img-fluid"></span>
+                <h3 class="text-success">Помощь с алгоритмами</h3>
+                <p>Узнайте, как работают алгоритмы и как решать проблемы шаг за шагом</p>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4 mb-lg-0">
+              <div class="package text-center bg-light">
+                <span class="img-wrap"><img src="images/flaticon/svg/003-mission.svg" alt="Image" class="img-fluid"></span>
+                <h3 class="text-danger">Веб-разработка</h3>
+                <p>Получите помощь с HTML, CSS, JavaScript и созданием ваших первых веб-сайтов</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-section py-5 bg-warning">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-12 d-flex">
+            <h2 class="text-white m-0">Привнесите веселье в образование по компьютерным наукам</h2>
+            <a href="#assistant-section" class="btn btn-primary btn-custom-1 py-3 px-5 ml-auto">Задать вопрос</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4">
+              <h2 class="footer-heading mb-3">О нас</h2>
+                  <p class="mb-5">Люди, которые верят, что изучение компьютерных наук может быть веселым и доступным для всех</p>
+
+                  <h2 class="footer-heading mb-4">Рассылка</h2>
+                  <form action="#" class="d-flex" class="subscribe">
+                    <input type="text" class="form-control mr-3" placeholder="Email">
+                    <input type="submit" class="btn btn-primary" value="Отправить">
+                  </form>
+            </div>
+            <div class="col-lg-8 ml-auto">
+              <div class="row">
+                <div class="col-lg-4 ml-auto">
+                  <h2 class="footer-heading mb-4">Навигация</h2>
+                  <ul class="list-unstyled">
+                  <li><a href="index_ru.html" class="nav-link">Главная</a></li>
+                  <li class="active"><a href="chat_ru.html" class="nav-link">AI Ассистент</a></li>
+                  <li><a href="test_ru.html" class="nav-link">Генератор тестов</a></li>
+                  <li><a href="img_ru.html" class="nav-link">Поиск контента</a></li>
+                  <li><a href="contact_ru.html" class="nav-link">Контакты</a></li>
+                  <li><a href="edu_ru.html" class="nav-link">Обучение</a></li>
+                  <li><a href="acc_ru.html" class="nav-link">Аккаунт</a></li>
+                  </ul>
+                </div>
+                <div class="col-lg-4">
+                  <h2 class="footer-heading mb-4">AI Инструменты</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="#assistant-section">Чат сейчас</a></li>
+                    <li><a href="#features">Функции</a></li>
+                    <li><a href="#">Помощь по программированию</a></li>
+                    <li><a href="#">Поддержка алгоритмов</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-5 mt-5 text-center">
+            <div class="col-md-12">
+              <div class="border-top pt-5">
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/responsive.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const authIndicatorContainer = document.getElementById('authIndicatorContainer');
+        
+        const SERVER_API_URL = '/api/chat';
+        
+        let conversationHistory = [
+          {
+            role: "user",
+            parts: [{text: "Вы - AI учебный ассистент, специализирующийся на компьютерных науках, программировании, алгоритмах и связанных школьных предметах. Пожалуйста, предоставляйте полезные, образовательные ответы, чтобы помочь студентам учиться. Держите ответы краткими и сосредоточенными на обучении."}]
+          },
+          {
+            role: "model", 
+            parts: [{text: "Привет! Я ваш AI учебный ассистент. Я могу помочь вам с компьютерными науками, программированием, алгоритмами и другими школьными предметами. Чему бы вы хотели научиться сегодня?"}]
+          }
+        ];
+        
+        // Проверка авторизации
+        function checkAuth() {
+          const token = localStorage.getItem('token');
+          const user = localStorage.getItem('aiToolkitUser');
+          return { isAuthenticated: !!(token && user), user: user ? JSON.parse(user) : null };
+        }
+        
+        // Показать индикатор авторизации
+        function showAuthIndicator() {
+          const auth = checkAuth();
+          if (auth.isAuthenticated && auth.user) {
+            authIndicatorContainer.innerHTML = `
+              <div class="auth-indicator">
+                👤 ${auth.user.username} (Уровень ${auth.user.level})
+                <button onclick="logout()" class="btn btn-sm btn-outline-light ml-2" style="padding: 2px 8px; font-size: 12px;">
+                  Выйти
+                </button>
+              </div>
+            `;
+          } else {
+            authIndicatorContainer.innerHTML = `
+              <div class="login-prompt">
+                💡 <strong>Хотите отслеживать свой прогресс?</strong> 
+                <a href="acc_ru.html" class="btn btn-primary btn-sm ml-2">Войти или Зарегистрироваться</a></p>
+              </div>
+            `;
+          }
+        }
+        
+        // Выход из системы
+        window.logout = function() {
+          localStorage.removeItem('token');
+          localStorage.removeItem('aiToolkitUser');
+          showAuthIndicator();
+          location.reload();
+        };
+        
+        // Добавление сообщения в чат
+        function addMessage(text, isUser) {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+          
+          const bubbleDiv = document.createElement('div');
+          bubbleDiv.className = 'message-bubble';
+          
+          const messageText = document.createElement('p');
+          messageText.textContent = text;
+          
+          const timeDiv = document.createElement('div');
+          timeDiv.className = 'message-time';
+          timeDiv.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+          
+          bubbleDiv.appendChild(messageText);
+          bubbleDiv.appendChild(timeDiv);
+          messageDiv.appendChild(bubbleDiv);
+          
+          chatMessages.appendChild(messageDiv);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Получение ответа от AI
+        async function getAIResponse(userMessage) {
+          try {
+            conversationHistory.push({
+              role: "user",
+              parts: [{text: userMessage}]
+            });
+            
+            const response = await fetch(SERVER_API_URL, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                messages: conversationHistory
+              })
+            });
+            
+            if (!response.ok) {
+              throw new Error(`Ошибка сервера: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.choices && data.choices[0] && data.choices[0].message) {
+              const aiResponse = data.choices[0].message.content;
+              
+              conversationHistory.push({
+                role: "model",
+                parts: [{text: aiResponse}]
+              });
+              
+              return aiResponse;
+            } else {
+              throw new Error('Неверный формат ответа от сервера');
+            }
+          } catch (error) {
+            console.error('Ошибка вызова серверного API:', error);
+            return "Извините, у меня сейчас проблемы с подключением. Пожалуйста, попробуйте позже.";
+          }
+        }
+        
+        // Отправка сообщения
+        async function sendMessage() {
+          const message = chatInput.value.trim();
+          
+          if (message) {
+            addMessage(message, true);
+            chatInput.value = '';
+            
+            sendButton.disabled = true;
+            chatInput.disabled = true;
+            
+            typingIndicator.style.display = 'block';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            try {
+              const response = await getAIResponse(message);
+              
+              typingIndicator.style.display = 'none';
+              addMessage(response, false);
+              
+              // Обновление статистики если пользователь авторизован
+              const auth = checkAuth();
+              if (auth.isAuthenticated) {
+                try {
+                  const token = localStorage.getItem('token');
+                  await fetch('/api/update-progress', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                      aiRequests: 1
+                    })
+                  });
+                } catch (statsError) {
+                  console.log('Не удалось обновить статистику:', statsError);
+                }
+              }
+              
+            } catch (error) {
+              typingIndicator.style.display = 'none';
+              addMessage("Извините, я столкнулся с ошибкой при обработке вашего запроса. Пожалуйста, попробуйте еще раз.", false);
+            } finally {
+              sendButton.disabled = false;
+              chatInput.disabled = false;
+              chatInput.focus();
+            }
+          }
+        }
+        
+        // Обработчики событий
+        sendButton.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            sendMessage();
+          }
+        });
+        
+        // Инициализация
+        showAuthIndicator();
+        chatInput.focus();
+        
+        // Добавляем примеры быстрых вопросов
+        setTimeout(() => {
+          const quickQuestions = [
+            "Что такое переменная в программировании?",
+            "Объясните, как работают циклы",
+            "Для чего используется HTML?",
+            "Как работают функции в JavaScript?"
+          ];
+          
+          const examplesContainer = document.createElement('div');
+          examplesContainer.style.padding = '1rem';
+          examplesContainer.style.textAlign = 'center';
+          examplesContainer.innerHTML = `
+            <p class="text-muted mb-2">Попробуйте спросить:</p>
+            <div class="quick-questions">
+              ${quickQuestions.map(question => 
+                `<button class="btn btn-outline-primary btn-sm m-1" onclick="document.getElementById('chatInput').value='${question}'; document.getElementById('sendButton').click();">${question}</button>`
+              ).join('')}
+            </div>
+          `;
+          
+          chatMessages.appendChild(examplesContainer);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="kk">
+  <head>
+    <title>Тест Генераторы - Ai-Toolkit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700|Indie+Flower" rel="stylesheet">
+    
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+      /* Test Generator specific styles */
+      .test-generator-section {
+        background-color: #B2B2B2;
+        padding: 2rem 0;
+      }
+      
+      .test-container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+      
+      .test-header {
+        background: #fd4d40;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+      
+      .test-input-section {
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .topic-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        outline: none;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .topic-input:focus {
+        border-color: #fd4d40;
+      }
+      
+      .generate-btn {
+        background-color: #fd4d40;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+      }
+      
+      .generate-btn:hover {
+        background-color: #e04438;
+      }
+      
+      .test-content {
+        padding: 1.5rem;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+      
+      .question-item {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid #fd4d40;
+      }
+      
+      .question-number {
+        background: #fd4d40;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+      
+      .options-list {
+        margin-top: 1rem;
+      }
+      
+      .option-item {
+        background: white;
+        border: 1px solid #e9ecef;
+        border-radius: 5px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      
+      .option-item:hover {
+        border-color: #fd4d40;
+        background: #fff5f5;
+      }
+      
+      .option-item.selected {
+        border-color: #3498db;
+        background: #f0f8ff;
+      }
+      
+      .option-item.correct {
+        border-color: #16c3b0;
+        background: #f0f9f7;
+      }
+      
+      .option-item.incorrect {
+        border-color: #fd4d40;
+        background: #fff5f5;
+      }
+      
+      .test-results {
+        padding: 1.5rem;
+        border-top: 1px solid #eee;
+        display: none;
+      }
+      
+      .result-item {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        border-radius: 5px;
+      }
+      
+      .result-correct {
+        background: #f0f9f7;
+        border-left: 4px solid #16c3b0;
+      }
+      
+      .result-incorrect {
+        background: #fff5f5;
+        border-left: 4px solid #fd4d40;
+      }
+      
+      .score-display {
+        text-align: center;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+      }
+      
+      .score-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #fd4d40;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0 auto 1rem;
+      }
+      
+      .generating-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .generating-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #fd4d40;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .submit-btn {
+        background-color: #16c3b0;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        margin-top: 1rem;
+      }
+      
+      .submit-btn:hover {
+        background-color: #14b3a1;
+      }
+      
+      .new-test-btn {
+        background-color: #fdb62f;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        margin-top: 1rem;
+      }
+      
+      .new-test-btn:hover {
+        background-color: #eca61f;
+      }
+
+      .experience-gained {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .level-up {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: bold;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+    </style>
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style="background-color: #B2B2B2;">
+
+    <div class="site-wrap" id="home-section">
+
+     <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+     </div>
+      <!-- Навигация -->
+      <header class="site-navbar site-navbar-target" role="banner">
+        <div class="container mb-3">
+          <div class="d-flex align-items-center">
+            <div class="site-logo mr-auto">
+              <a href="index_kk.html">Ai-Toolkit<span class="text-primary">.</span></a>
+            </div>
+            <div class="site-quick-contact d-none d-lg-flex ml-auto ">
+              <div class="d-flex site-info align-items-center mr-5">
+                <span class="block-icon mr-3"><span class="icon-map-marker text-yellow"></span></span>
+                <span>Шерхан Мұртаза атындағы мектеп <br>Тараз</span>
+              </div>
+              <div class="d-flex site-info align-items-center">
+                <span class="block-icon mr-3"><span class="icon-clock-o"></span></span>
+                <span>Әзірленуде</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="menu-wrap d-flex align-items-center">
+            <span class="d-inline-block d-lg-none"><a href="#" class="text-black site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-black"></span></a></span>
+
+            <nav class="site-navigation text-left mr-auto d-none d-lg-block" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto ">
+                  <li><a href="index_kk.html" class="nav-link">Басты</a></li>
+                  <li><a href="chat_kk.html" class="nav-link">AI Көмекші</a></li>
+                  <li class="active"><a href="test_kk.html" class="nav-link">Тест Генераторы</a></li>
+                  <li><a href="img_kk.html" class="nav-link">Контент Іздеу</a></li>
+                  <li><a href="contact_kk.html" class="nav-link">Байланыс</a></li>
+                  <li><a href="edu_kk.html" class="nav-link">Білім</a></li>
+                  <li><a href="acc_kk.html" class="nav-link">Аккаунт</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <!-- Тест генераторы бөлімі -->
+      <div class="test-generator-section" style="margin-top: 200px;">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-12 text-center">
+              <span class="text-cursive h5 text-red d-block">AI Тест Генераторы</span>
+              <h2 class="text-black">Секундтар ішінде жеке тесттер жасаңыз</h2>
+              <p class="lead">Кез келген компьютерлік ғылым тақырыбы бойынша AI көмегімен жекелендірілген тесттерді жасаңыз</p>
+            </div>
+          </div>
+          
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="test-container">
+                <div class="test-header">
+                  <h3 class="text-white m-0">AI Тест Генераторы</h3>
+                </div>
+                
+                <div class="test-input-section">
+                  <input type="text" class="topic-input" id="topicInput" placeholder="Компьютерлік ғылым тақырыбын енгізіңіз (мысалы, Python циклдары, HTML негіздері, алгоритмдер)...">
+                  <div class="text-center">
+                    <button class="generate-btn" id="generateBtn">Тест жасау</button>
+                  </div>
+                </div>
+                
+                <div class="test-content" id="testContent">
+                  <div class="text-center text-muted py-5">
+                    <p>Жоғарыда тақырыпты енгізіп, "Тест жасау" түймесін басыңыз</p>
+                  </div>
+                </div>
+                
+                <div class="test-results" id="testResults">
+                  <!-- Нәтижелер осында көрсетіледі -->
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mt-5">
+            <div class="col-md-4 text-center">
+              <div class="block-2 red">
+                <span class="wrap-icon">
+                  <span class="icon-file-text"></span>
+                </span>
+                <h2>Жеке тесттер</h2>
+                <p>Кез келген компьютерлік ғылым тақырыбы бойынша тесттерді лезде жасаңыз</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="block-2 yellow">
+                <span class="wrap-icon">
+                  <span class="icon-check-circle"></span>
+                </span>
+                <h2>Лездік кері байланыс</h2>
+                <p>Дұрыс және бұрыс жауаптарды көрсететін егжей-тегжейлі нәтижелерді алыңыз</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="block-2 teal">
+                <span class="wrap-icon">
+                  <span class="icon-trending-up"></span>
+                </span>
+                <h2>Прогресті бақылау</h2>
+                <p>Жекелендірілген тесттермен оқу прогресіңізді бақылаңыз</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Жүктелу оверлейі -->
+      <div class="generating-overlay" id="generatingOverlay">
+        <div class="generating-content">
+          <div class="loading-spinner"></div>
+          <h4>Сіздің тестіңіз жасалуда</h4>
+          <p>AI сіз үшін жекелендірілген сұрақтар жасауда...</p>
+        </div>
+      </div>
+
+      <!-- Футер -->
+      <footer class="site-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4">
+              <h2 class="footer-heading mb-3">Біз туралы</h2>
+              <p class="mb-5">Компьютерлік ғылымдарды үйрену көңілді және барлығына қол жетімді болуы мүмкін деп сенетін адамдар</p>
+
+              <h2 class="footer-heading mb-4">Жаңалықтар</h2>
+              <form action="#" class="d-flex">
+                <input type="text" class="form-control mr-3" placeholder="Email">
+                <input type="submit" class="btn btn-primary" value="Жіберу">
+              </form>
+            </div>
+            <div class="col-lg-8 ml-auto">
+              <div class="row">
+                <div class="col-lg-4 ml-auto">
+                  <h2 class="footer-heading mb-4">Навигация</h2>
+                  <ul class="list-unstyled">
+                  <li><a href="index_kk.html" class="nav-link">Басты</a></li>
+                  <li><a href="chat_kk.html" class="nav-link">AI Көмекші</a></li>
+                  <li class="active"><a href="test_kk.html" class="nav-link">Тест Генераторы</a></li>
+                  <li><a href="img_kk.html" class="nav-link">Контент Іздеу</a></li>
+                  <li><a href="contact_kk.html" class="nav-link">Байланыс</a></li>
+                  <li><a href="edu_kk.html" class="nav-link">Білім</a></li>
+                  <li><a href="acc_kk.html" class="nav-link">Аккаунт</a></li>
+                  </ul>
+                </div>
+                <div class="col-lg-4">
+                  <h2 class="footer-heading mb-4">AI Құралдары</h2>
+                  <ul class="list-unstyled">
+                    <li><a href="chat_kk.html">Оқу көмекшісі</a></li>
+                    <li><a href="test_kk.html">Тест генераторы</a></li>
+                    <li><a href="#">Код мысалдары</a></li>
+                    <li><a href="#">Прогресті бақылау</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row pt-5 mt-5 text-center">
+            <div class="col-md-12">
+              <div class="border-top pt-5">
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/responsive.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const topicInput = document.getElementById('topicInput');
+    const generateBtn = document.getElementById('generateBtn');
+    const testContent = document.getElementById('testContent');
+    const testResults = document.getElementById('testResults');
+    const generatingOverlay = document.getElementById('generatingOverlay');
+    
+    let currentTest = null;
+    let userAnswers = [];
+    
+    // Сервер арқылы тест жасау функциясы
+    async function generateTest() {
+      const topic = topicInput.value.trim();
+      
+      if (!topic) {
+        alert('Тест үшін тақырып енгізіңіз');
+        return;
+      }
+      
+      // Жүктелу оверлейін көрсету
+      generatingOverlay.style.display = 'flex';
+      
+      try {
+        const token = localStorage.getItem('aiToolkitToken');
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+        
+        const response = await fetch('/api/generate-test', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({ topic })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Сервер қатесі: ${response.status}`);
+        }
+        
+        const testData = await response.json();
+        currentTest = testData;
+        userAnswers = new Array(currentTest.questions.length).fill(null);
+        
+        // Тестті көрсету
+        displayTest(currentTest);
+        
+      } catch (error) {
+        console.error('Тест жасау қатесі:', error);
+        // Fallback: жергілікті генерацияны қолдану
+        currentTest = generateTestQuestions(topic);
+        userAnswers = new Array(currentTest.questions.length).fill(null);
+        displayTest(currentTest);
+      } finally {
+        // Жүктелу оверлейін жасыру
+        generatingOverlay.style.display = 'none';
+      }
+    }
+    
+    // Жергілікті тест сұрақтарын генерациялау функциясы (fallback)
+    function generateTestQuestions(topic) {
+      const testTemplates = {
+        'python': [
+          {
+            question: "print(2 + 3 * 4) нені шығарады?",
+            options: ["20", "14", "24", "Қате"],
+            correct: 1
+          },
+          {
+            question: "Python-да функцияны анықтау үшін қандай кілтсөз қолданылады?",
+            options: ["function", "def", "define", "func"],
+            correct: 1
+          },
+          {
+            question: "Python-да тізімді қалай жасауға болады?",
+            options: ["list = ()", "list = []", "list = {}", "list = <>"],
+            correct: 1
+          },
+          {
+            question: "Python-да 'len()' функциясы не істейді?",
+            options: ["Кіші әріпке түрлендіреді", "Ұзындығын қайтарады", "Санды дөңгелектейді", "Модульді импорттайды"],
+            correct: 1
+          },
+          {
+            question: "Python-да дәрежеге шығару үшін қандай оператор қолданылады?",
+            options: ["^", "**", "^^", "//"],
+            correct: 1
+          }
+        ],
+        'algorithms': [
+          {
+            question: "Екілік іздеудің уақыттық күрделілігі қандай?",
+            options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+            correct: 1
+          },
+          {
+            question: "Қандай деректер құрылымы LIFO (Last In First Out) принципін қолданады?",
+            options: ["Кезек", "Стек", "Массив", "Байланыстырылған тізім"],
+            correct: 1
+          },
+          {
+            question: "Хэш-кестелерін қолданудың негізгі артықшылығы неде?",
+            options: [
+              "Іздеу операциялары үшін тұрақты уақыттық күрделілік",
+              "Элементтердің автоматты сұрыпталуы",
+              "Шексіз сақтау сыйымдылығы",
+              "Кіріктірілген шифрлау"
+            ],
+            correct: 0
+          },
+          {
+            question: "Қай сұрыптау алгоритмі ең нашар жағдайда ең жақсы уақыттық күрделілікке ие?",
+            options: ["Көпіршік сұрыптау", "Жылдам сұрыптау", "Біріктіру сұрыптау", "Таңдау сұрыптау"],
+            correct: 2
+          },
+          {
+            question: "Граф алгоритмдерінде DFS деген не?",
+            options: ["Тереңдік бойынша іздеу", "Деректер ағыны құрылымы", "Сандық файлдық жүйе", "Динамикалық функция іздеу"],
+            correct: 0
+          }
+        ]
+      };
+      
+      // Тақырыпқа негізделген үлгіні таңдау
+      let selectedTemplate = 'python';
+      if (topic.toLowerCase().includes('html')) selectedTemplate = 'html';
+      if (topic.toLowerCase().includes('algorithm')) selectedTemplate = 'algorithms';
+      if (topic.toLowerCase().includes('java')) selectedTemplate = 'python';
+      
+      return {
+        topic: topic,
+        questions: testTemplates[selectedTemplate] || testTemplates['python']
+      };
+    }
+    
+    // Тестті көрсету функциясы
+    function displayTest(test) {
+      let testHTML = `
+        <div class="text-center mb-4">
+          <h4>Тест: ${test.topic}</h4>
+          <p>Барлық сұрақтарға жауап беріп, аяқтағаннан кейін "Тестті жіберу" түймесін басыңыз</p>
+        </div>
+      `;
+      
+      test.questions.forEach((q, index) => {
+        testHTML += `
+          <div class="question-item" data-question-index="${index}">
+            <div class="question-header">
+              <span class="question-number">${index + 1}</span>
+              <strong>${q.question}</strong>
+            </div>
+            <div class="options-list">
+        `;
+        
+        q.options.forEach((option, optIndex) => {
+          testHTML += `
+            <div class="option-item" data-option-index="${optIndex}">
+              ${option}
+            </div>
+          `;
+        });
+        
+        testHTML += `
+            </div>
+          </div>
+        `;
+      });
+      
+      testHTML += `
+        <div class="text-center">
+          <button class="submit-btn" id="submitTest">Тестті жіберу</button>
+        </div>
+      `;
+      
+      testContent.innerHTML = testHTML;
+      
+      // Жауап нұсқалары үшін оқиға өңдеуіштерін қосу
+      document.querySelectorAll('.option-item').forEach(option => {
+        option.addEventListener('click', function() {
+          const questionItem = this.closest('.question-item');
+          const questionIndex = parseInt(questionItem.dataset.questionIndex);
+          const optionIndex = parseInt(this.dataset.optionIndex);
+          
+          // Бұл сұрақтағы басқа нұсқалардан белгіленуді алып тастау
+          questionItem.querySelectorAll('.option-item').forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          
+          // Таңдалған нұсқаны белгілеу
+          this.classList.add('selected');
+          
+          // Пайдаланушы жауабын сақтау
+          userAnswers[questionIndex] = optionIndex;
+        });
+      });
+      
+      // Жіберу түймесі үшін оқиға өңдеуішін қосу
+      document.getElementById('submitTest').addEventListener('click', submitTest);
+    }
+    
+    // Тестті жіберу және нәтижелерді көрсету функциясы
+    async function submitTest() {
+      // Барлық сұрақтарға жауап берілгенін тексеру
+      if (userAnswers.includes(null)) {
+        alert('Жіберу алдында барлық сұрақтарға жауап беріңіз');
+        return;
+      }
+      
+      // Нәтижелерді есептеу
+      let correctCount = 0;
+      const results = [];
+      
+      currentTest.questions.forEach((q, index) => {
+        const isCorrect = userAnswers[index] === q.correct;
+        if (isCorrect) correctCount++;
+        
+        results.push({
+          question: q.question,
+          userAnswer: q.options[userAnswers[index]],
+          correctAnswer: q.options[q.correct],
+          isCorrect: isCorrect
+        });
+      });
+      
+      const score = Math.round((correctCount / currentTest.questions.length) * 100);
+      
+      // API арқылы нәтижелерді сақтау және тәжірибе деректерін алу
+      const saveResult = await saveTestResults(correctCount, currentTest.questions.length);
+      
+      // Нәтижелерді көрсету
+      displayResults(score, results, saveResult);
+    }
+    
+    // Тест нәтижелерін сақтау функциясы
+    async function saveTestResults(correctCount, totalQuestions) {
+      try {
+        const token = localStorage.getItem('aiToolkitToken');
+        if (!token) {
+          console.log('Пайдаланушы жүйеге кірмеген, нәтижелерді сақтау өткізіп жіберіледі');
+          return null;
+        }
+        
+        const response = await fetch('/api/save-test-result', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            topic: currentTest.topic,
+            score: correctCount,
+            totalQuestions: totalQuestions
+          })
+        });
+        
+        if (response.ok) {
+          const resultData = await response.json();
+          console.log('Тест нәтижелері сақталды:', resultData);
+          
+          // Операцияның сәттілігін тексеру
+          if (resultData.success) {
+            return resultData;
+          } else {
+            console.error('Тест нәтижелерін сақтау сәтсіз аяқталды:', resultData.error);
+            return null;
+          }
+        } else {
+          console.error('Тест нәтижелерін сақтау сәтсіз аяқталды:', response.status);
+          return null;
+        }
+      } catch (error) {
+        console.error('Тест нәтижелерін сақтау қатесі:', error);
+        return null;
+      }
+    }
+    
+    // Нәтижелерді көрсету функциясы
+    function displayResults(score, results, saveResult) {
+      let resultsHTML = `
+        <div class="score-display">
+          <div class="score-circle">${score}%</div>
+          <h4>Тест нәтижелері</h4>
+          <p>Сіз ${currentTest.topic} бойынша тесттен ${score}% жинадыңыз</p>
+      `;
+      
+      // Пайдаланушы авторизацияланған және сақтау сәтті болған жағдайда ғана алынған тәжірибе туралы ақпаратты қосу
+      if (saveResult && saveResult.success) {
+        // Алынған тәжірибені көрсету
+        if (saveResult.experience) {
+          resultsHTML += `
+            <div class="experience-gained">
+              🎉 +${saveResult.experience} XP Алынды!
+            </div>
+          `;
+        }
+        
+        // Деңгей туралы ақпаратты көрсету
+        if (saveResult.level) {
+          const oldLevel = localStorage.getItem('currentLevel') || 1;
+          const newLevel = saveResult.level;
+          
+          if (newLevel > oldLevel) {
+            resultsHTML += `
+              <div class="level-up">
+                🚀 Деңгей көтерілді! Енді сіз ${newLevel} деңгейсіз
+              </div>
+            `;
+            // localStorage-дегі деңгейді жаңарту
+            localStorage.setItem('currentLevel', newLevel);
+          } else {
+            resultsHTML += `
+              <div class="experience-gained">
+                📊 Ағымдағы деңгей: ${newLevel}
+              </div>
+            `;
+          }
+        }
+        
+        // Прогресс туралы ақпаратты көрсету
+        if (saveResult.levelInfo) {
+          const levelInfo = saveResult.levelInfo;
+          resultsHTML += `
+            <div class="experience-gained" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+              📈 Прогресс: ${levelInfo.currentLevelExp || 0}/${levelInfo.expToNextLevel + (levelInfo.currentLevelExp || 0)} XP дейін ${(levelInfo.level || 1) + 1} деңгейіне
+            </div>
+          `;
+        }
+      } else {
+        resultsHTML += `
+          <div class="experience-gained" style="background: #6c757d;">
+            🔐 <a href="acc_kk.html" style="color: white; text-decoration: underline;">Кіріңіз</a> прогресіңізді бақылау және XP жинау үшін!
+          </div>
+        `;
+      }
+      
+      resultsHTML += `</div><h5>Егжей-тегжейлі нәтижелер:</h5>`;
+      
+      results.forEach((result, index) => {
+        resultsHTML += `
+          <div class="result-item ${result.isCorrect ? 'result-correct' : 'result-incorrect'}">
+            <div class="question-number">${index + 1}</div>
+            <strong>${result.question}</strong><br>
+            <span>Сіздің жауабыңыз: ${result.userAnswer}</span><br>
+            <span>Дұрыс жауап: ${result.correctAnswer}</span>
+          </div>
+        `;
+      });
+      
+      resultsHTML += `
+        <div class="text-center">
+          <button class="new-test-btn" id="newTestBtn">Жаңа тест жасау</button>
+        </div>
+      `;
+      
+      testResults.innerHTML = resultsHTML;
+      testResults.style.display = 'block';
+      
+      // Пайдаланушы авторизацияланған болса авторизация индикаторын жаңарту
+      if (saveResult && saveResult.success) {
+        updateAuthIndicator();
+      }
+      
+      // Жаңа тест түймесі үшін оқиға өңдеуішін қосу
+      document.getElementById('newTestBtn').addEventListener('click', function() {
+        topicInput.value = '';
+        testContent.innerHTML = '<div class="text-center text-muted py-5"><p>Жоғарыда тақырыпты енгізіп, "Тест жасау" түймесін басыңыз</p></div>';
+        testResults.style.display = 'none';
+        currentTest = null;
+        userAnswers = [];
+      });
+    }
+    
+    // Авторизация индикаторын жаңарту функциясы
+    function updateAuthIndicator() {
+      const savedUser = localStorage.getItem('aiToolkitUser');
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+        const authIndicator = document.getElementById('authIndicator');
+        
+        if (authIndicator) {
+          authIndicator.innerHTML = `👤 ${user.username} (Д ${user.level})`;
+        } else {
+          showAuthIndicator(user);
+        }
+      }
+    }
+    
+    // Оқиға өңдеуіштері
+    generateBtn.addEventListener('click', generateTest);
+    
+    topicInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        generateTest();
+      }
+    });
+
+    // Аккаунт жүйесімен интеграция
+    function initializeAccountIntegration() {
+      const savedUser = localStorage.getItem('aiToolkitUser');
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+        
+        // API сұрауларына userEmail қосу
+        window.userEmail = user.email;
+        
+        // Авторизация индикаторын көрсету
+        showAuthIndicator(user);
+      }
+    }
+
+    function showAuthIndicator(user) {
+      // Навигацияға индикатор қосу
+      const nav = document.querySelector('.site-navigation');
+      if (nav && !document.getElementById('authIndicator')) {
+        const authIndicator = document.createElement('div');
+        authIndicator.id = 'authIndicator';
+        authIndicator.style.cssText = `
+          position: fixed;
+          top: 100px;
+          right: 20px;
+          background: #28a745;
+          color: white;
+          padding: 5px 10px;
+          border-radius: 15px;
+          font-size: 12px;
+          z-index: 1000;
+        `;
+        authIndicator.innerHTML = `👤 ${user.username} (Д ${user.level})`;
+        document.body.appendChild(authIndicator);
+      }
+    }
+
+    // Бет жүктелу кезінде инициализация
+    initializeAccountIntegration();
+  });
+</script>
+  </body>
+</html>

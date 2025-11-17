@@ -1,0 +1,112 @@
+{
+  "rasult@mail.ru": {
+    "completedLessons": 4,
+    "totalScore": 204,
+    "testsTaken": 8,
+    "aiRequests": 17,
+    "currentStreak": 1,
+    "lastActivity": "Thu Oct 30 2025",
+    "dailyRequests": {
+      "Thu Oct 30 2025": 17
+    },
+    "progress": {
+      "programming": 2,
+      "algorithms": 0,
+      "web": 0,
+      "databases": 0
+    }
+  },
+  "rasul@mail.ru": {
+    "completedLessons": 0,
+    "totalScore": 20,
+    "testsTaken": 1,
+    "aiRequests": 2,
+    "currentStreak": 1,
+    "lastActivity": "Sat Nov 01 2025",
+    "dailyRequests": {
+      "Sat Nov 01 2025": 2
+    },
+    "progress": {
+      "programming": 0,
+      "algorithms": 0,
+      "web": 0,
+      "databases": 0
+    },
+    "testHistory": [
+      {
+        "topic": "python",
+        "category": "programming",
+        "score": 20,
+        "date": "2025-11-01T08:37:58.773Z"
+      }
+    ]
+  },
+  "rasulttt@mail.ru": {
+    "completedLessons": 0,
+    "totalScore": 0,
+    "testsTaken": 0,
+    "aiRequests": 0,
+    "currentStreak": 0,
+    "lastActivity": null,
+    "dailyRequests": {},
+    "progress": {
+      "programming": 0,
+      "algorithms": 0,
+      "web": 0,
+      "databases": 0
+    },
+    "testHistory": []
+  },
+  "rasulttl@mail.ru": {
+    "completedLessons": 0,
+    "totalScore": 140,
+    "testsTaken": 2,
+    "aiRequests": 6,
+    "currentStreak": 1,
+    "lastActivity": "Wed Nov 12 2025",
+    "dailyRequests": {
+      "Wed Nov 12 2025": 6
+    },
+    "progress": {
+      "programming": 0,
+      "algorithms": 0,
+      "web": 0,
+      "databases": 0
+    },
+    "testHistory": []
+  },
+  "Rsss@mail.ru": {
+    "completedLessons": 0,
+    "totalScore": 20,
+    "testsTaken": 1,
+    "aiRequests": 2,
+    "currentStreak": 1,
+    "lastActivity": "Wed Nov 12 2025",
+    "dailyRequests": {
+      "Wed Nov 12 2025": 2
+    },
+    "progress": {
+      "programming": 0,
+      "algorithms": 0,
+      "web": 0,
+      "databases": 0
+    },
+    "testHistory": []
+  },
+  "Rasull@mail.ru": {
+    "completedLessons": 0,
+    "totalScore": 0,
+    "testsTaken": 0,
+    "aiRequests": 0,
+    "currentStreak": 0,
+    "lastActivity": null,
+    "dailyRequests": {},
+    "progress": {
+      "programming": 0,
+      "algorithms": 0,
+      "web": 0,
+      "databases": 0
+    },
+    "testHistory": []
+  }
+}

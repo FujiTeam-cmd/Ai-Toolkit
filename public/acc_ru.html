@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <title>Аккаунт - Ai-Toolkit</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700|Indie+Flower" rel="stylesheet">
+  
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .progress-section {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .progress-bar-custom {
+      height: 20px;
+      border-radius: 10px;
+    }
+    .history-item {
+      border-left: 3px solid #007bff;
+      padding-left: 15px;
+      margin-bottom: 15px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .plan-card {
+      border-radius: 10px;
+      transition: transform 0.3s;
+      margin-bottom: 20px;
+    }
+    .plan-card:hover {
+      transform: translateY(-5px);
+    }
+    .stats-card {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      color: white;
+    }
+    .login-section, .profile-section {
+      display: none;
+    }
+    .active-section {
+      display: block;
+    }
+    .level-badge {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+    .goal-item {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .goal-item:last-child {
+      border-bottom: none;
+    }
+    .goal-completed {
+      text-decoration: line-through;
+      color: #28a745;
+    }
+    .section-title {
+      border-bottom: 2px solid #fd4d40;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  
+  <div class="site-wrap" id="home-section">
+
+     <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+     </div>
+     
+    <header class="site-navbar site-navbar-target" role="banner">
+      <div class="container mb-3">
+        <div class="d-flex align-items-center">
+          <div class="site-logo mr-auto">
+            <a href="index_ru.html">Ai-Toolkit<span class="text-primary">.</span></a>
+          </div>
+          <div class="site-quick-contact d-none d-lg-flex ml-auto ">
+            <div class="d-flex site-info align-items-center mr-5">
+              <span class="block-icon mr-3"><span class="icon-map-marker text-yellow"></span></span>
+              <span>Школа имени Шерхана Муртазы <br>Тараз</span>
+            </div>
+            <div class="d-flex site-info align-items-center">
+              <span class="block-icon mr-3"><span class="icon-clock-o"></span></span>
+              <span>В разработке<br> </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="menu-wrap d-flex align-items-center">
+          <span class="d-inline-block d-lg-none"><a href="#" class="text-black site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-black"></span></a></span>
+
+          <nav class="site-navigation text-left mr-auto d-none d-lg-block" role="navigation">
+            <ul class="site-menu main-menu js-clone-nav mr-auto ">
+                  <li><a href="index_ru.html" class="nav-link">Главная</a></li>
+                  <li><a href="chat_ru.html" class="nav-link">AI Помощник</a></li>
+                  <li><a href="test_ru.html" class="nav-link">Генератор Тестов</a></li>
+                  <li><a href="img_ru.html" class="nav-link">Поиск Контента</a></li>
+                  <li><a href="contact_ru.html" class="nav-link">Контакты</a></li>
+                  <li><a href="edu_ru.html" class="nav-link">Обучение</a></li>
+                  <li class="active"><a href="acc_ru.html" class="nav-link">Аккаунт</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="ftco-blocks-cover-1">
+      <div class="site-section-cover overlay" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-8 mt-5 pt-5">
+              <span class="text-cursive h5 text-white">С возвращением!</span>
+              <h1 class="mb-3 font-weight-bold text-white">Ваша Панель Управления Обучением</h1>
+              <p class="text-white">Отслеживайте свой прогресс и следуйте персонализированному плану обучения</p>
+            </div>
+            <div class="col-md-4 ml-auto align-self-end">
+              <img src="images/user_dashboard.png" alt="Image" class="img-fluid">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Секция входа/регистрации -->
+    <div class="site-section bg-light login-section active-section" id="login-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card shadow-sm">
+              <div class="card-body p-5">
+                <h3 class="text-center mb-4">Добро пожаловать в Ai-Toolkit</h3>
+                
+                <div class="text-center mb-4">
+                  <button class="btn btn-primary mr-2" id="showLoginBtn">Войти</button>
+                  <button class="btn btn-outline-primary" id="showRegisterBtn">Регистрация</button>
+                </div>
+
+                <!-- Форма входа -->
+                <form id="loginForm">
+                  <h4 class="text-center mb-4">Войдите в свой аккаунт</h4>
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="loginEmail" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                </form>
+
+                <!-- Форма регистрации -->
+                <form id="registerForm" style="display: none;">
+                  <h4 class="text-center mb-4">Создать новый аккаунт</h4>
+                  <div class="form-group">
+                    <label>Имя пользователя</label>
+                    <input type="text" class="form-control" id="registerUsername" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="registerEmail" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" class="form-control" id="registerPassword" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Уровень класса</label>
+                    <select class="form-control" id="registerGrade">
+                      <option value="5">5 класс</option>
+                      <option value="6">6 класс</option>
+                      <option value="7">7 класс</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Создать аккаунт</button>
+                </form>
+
+                <div id="authMessage" class="mt-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Основная секция профиля -->
+    <div class="site-section bg-light profile-section" id="profile-section">
+      <div class="container">
+        <!-- Статистика -->
+        <div class="row mb-5">
+          <div class="col-12">
+            <h2 class="section-title">Ваша Статистика</h2>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card bg-primary">
+              <h2 id="completedLessons">0</h2>
+              <p>Завершенные Уроки</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card bg-success">
+              <h2 id="averageScore">0%</h2>
+              <p>Средний Балл</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card bg-warning text-dark">
+              <h2 id="currentStreak">0</h2>
+              <p>Текущая Серия</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card bg-info">
+              <h2 id="aiRequestsToday">0</h2>
+              <p>AI Запросов Сегодня</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Профиль и прогресс -->
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+              <div class="card-body text-center">
+                <img src="images/user.jpg" alt="User" class="rounded-circle mb-3" width="120">
+                <h3 class="card-title" id="profileUsername">Загрузка...</h3>
+                <p class="text-muted" id="profileEmail">Загрузка...</p>
+                <div class="mb-3">
+                  <span class="level-badge" id="profileLevel">Уровень 1</span>
+                  <span class="badge badge-success p-2 ml-1">Активен</span>
+                </div>
+                <div class="progress mb-2">
+                  <div class="progress-bar bg-warning" id="experienceBar" role="progressbar" style="width: 0%"></div>
+                </div>
+                <small class="text-muted" id="experienceText">0/100 XP до след. уровня</small>
+                <p class="card-text mt-3" id="profileJoined">Присоединился: Загрузка...</p>
+                <button class="btn btn-outline-primary btn-sm" id="logoutBtn">Выйти</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-8">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h4 class="section-title">Прогресс Обучения</h4>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="progress-section">
+                      <h5>Основы Программирования</h5>
+                      <div class="progress mb-3">
+                        <div class="progress-bar bg-success progress-bar-custom" id="progressProgramming" role="progressbar" style="width: 0%"></div>
+                      </div>
+                      <p id="progressProgrammingText">Завершено: 0/20 уроков</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="progress-section">
+                      <h5>Алгоритмы & Структуры Данных</h5>
+                      <div class="progress mb-3">
+                        <div class="progress-bar bg-info progress-bar-custom" id="progressAlgorithms" role="progressbar" style="width: 0%"></div>
+                      </div>
+                      <p id="progressAlgorithmsText">Завершено: 0/20 уроков</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="progress-section">
+                      <h5>Веб-Разработка</h5>
+                      <div class="progress mb-3">
+                        <div class="progress-bar bg-warning progress-bar-custom" id="progressWeb" role="progressbar" style="width: 0%"></div>
+                      </div>
+                      <p id="progressWebText">Завершено: 0/20 уроков</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="progress-section">
+                      <h5>Управление Базами Данных</h5>
+                      <div class="progress mb-3">
+                        <div class="progress-bar bg-danger progress-bar-custom" id="progressDatabases" role="progressbar" style="width: 0%"></div>
+                      </div>
+                      <p id="progressDatabasesText">Завершено: 0/20 уроков</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Планы обучения -->
+        <div class="row mt-5">
+          <div class="col-md-6">
+            <div class="card plan-card shadow-sm border-warning">
+              <div class="card-header bg-warning text-white">
+                <h4 class="mb-0">📅 Еженедельный План</h4>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Цели на эту неделю</h5>
+                <div class="progress mb-3">
+                  <div class="progress-bar bg-warning" id="weeklyProgress" role="progressbar" style="width: 0%"></div>
+                </div>
+                <p class="text-muted" id="weeklyProgressText">0% недельных целей выполнено</p>
+                
+                <div id="weeklyGoalsList">
+                  <!-- Goals will be populated by JavaScript -->
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="card plan-card shadow-sm border-danger">
+              <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">📊 Ежемесячный План</h4>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Цели на этот месяц</h5>
+                <div class="progress mb-3">
+                  <div class="progress-bar bg-danger" id="monthlyProgress" role="progressbar" style="width: 0%"></div>
+                </div>
+                <p class="text-muted" id="monthlyProgressText">0% месячных целей выполнено</p>
+                
+                <div id="monthlyGoalsList">
+                  <!-- Goals will be populated by JavaScript -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- История действий -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h4 class="section-title">📝 Недавняя Активность</h4>
+                <div id="historyContainer">
+                  <p class="text-muted text-center">История активности пока отсутствует.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <h2 class="footer-heading mb-3">О нас</h2>
+            <p class="mb-5">Люди, которые верят, что обучение может быть увлекательным</p>
+
+            <h2 class="footer-heading mb-4">Рассылка</h2>
+            <form action="#" class="d-flex" class="subscribe">
+              <input type="text" class="form-control mr-3" placeholder="Email">
+              <a type="submit" class="btn btn-primary" href="contact_ru.html" style="align-items: center; padding-top: 15px; ">Отправить</a>
+            </form>
+          </div>
+          <div class="col-lg-8 ml-auto">
+            <div class="row">
+              <div class="col-lg-4 ml-auto">
+                <h2 class="footer-heading mb-4">Навигация</h2>
+                <ul class="list-unstyled">
+                  <li><a href="index_ru.html#Aboutus">О нас</a></li>
+                  <li><a href="chat_ru.html">AI Помощник</a></li>
+                  <li><a href="index_ru.html#Testimonials">Отзывы</a></li>
+                  <li><a href="contact_ru.html">Контакты</a></li>
+                  <li><a href="index_ru.html#plan">План</a></li>
+                  <li><a href="index_ru.html#functional">Функционал</a></li>
+                  <li><a href="index_ru.html#pros">Преимущества</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <div class="border-top pt-5">
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.0.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/responsive.js"></script>
+
+<script>
+  class AccountSystem {
+    constructor() {
+      this.currentUser = null;
+      this.token = null;
+      this.init();
+    }
+
+    init() {
+      this.setupEventListeners();
+      this.checkExistingLogin();
+    }
+
+    setupEventListeners() {
+      document.getElementById('showLoginBtn').addEventListener('click', () => this.showLogin());
+      document.getElementById('showRegisterBtn').addEventListener('click', () => this.showRegister());
+      document.getElementById('loginForm').addEventListener('submit', (e) => this.handleLogin(e));
+      document.getElementById('registerForm').addEventListener('submit', (e) => this.handleRegister(e));
+      document.getElementById('logoutBtn').addEventListener('click', () => this.handleLogout());
+    }
+
+    showLogin() {
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('registerForm').style.display = 'none';
+      document.getElementById('showLoginBtn').classList.add('btn-primary');
+      document.getElementById('showLoginBtn').classList.remove('btn-outline-primary');
+      document.getElementById('showRegisterBtn').classList.add('btn-outline-primary');
+      document.getElementById('showRegisterBtn').classList.remove('btn-primary');
+    }
+
+    showRegister() {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('registerForm').style.display = 'block';
+      document.getElementById('showRegisterBtn').classList.add('btn-primary');
+      document.getElementById('showRegisterBtn').classList.remove('btn-outline-primary');
+      document.getElementById('showLoginBtn').classList.add('btn-outline-primary');
+      document.getElementById('showLoginBtn').classList.remove('btn-primary');
+    }
+
+    async handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          this.currentUser = data.user;
+          this.token = data.token;
+          this.saveToLocalStorage();
+          this.showProfile();
+          await this.loadUserData();
+          this.showMessage('Вход выполнен успешно!', 'success');
+        } else {
+          this.showMessage(data.error, 'danger');
+        }
+      } catch (error) {
+        this.showMessage('Ошибка входа: ' + error.message, 'danger');
+      }
+    }
+
+    async handleRegister(e) {
+      e.preventDefault();
+      const username = document.getElementById('registerUsername').value;
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+      const grade = document.getElementById('registerGrade').value;
+
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password, grade })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          this.currentUser = data.user;
+          this.token = data.token;
+          this.saveToLocalStorage();
+          this.showProfile();
+          await this.loadUserData();
+          this.showMessage('Аккаунт успешно создан!', 'success');
+        } else {
+          this.showMessage(data.error, 'danger');
+        }
+      } catch (error) {
+        this.showMessage('Ошибка регистрации: ' + error.message, 'danger');
+      }
+    }
+
+    showProfile() {
+      document.querySelector('.login-section').classList.remove('active-section');
+      document.querySelector('.profile-section').classList.add('active-section');
+    }
+
+    showLoginForm() {
+      document.querySelector('.login-section').classList.add('active-section');
+      document.querySelector('.profile-section').classList.remove('active-section');
+    }
+
+    async loadUserData() {
+      if (!this.currentUser || !this.token) return;
+
+      try {
+        // Загружаем свежие данные пользователя
+        const userResponse = await fetch('/api/user', {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        
+        if (!userResponse.ok) {
+          throw new Error('Не удалось загрузить данные пользователя');
+        }
+        
+        const userData = await userResponse.json();
+
+        // Загружаем информацию об уровне
+        const levelResponse = await fetch('/api/level-info', {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        
+        let levelInfo = {};
+        if (levelResponse.ok) {
+          levelInfo = await levelResponse.json();
+        }
+
+        // Загружаем историю
+        const historyResponse = await fetch('/api/history', {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        
+        const history = historyResponse.ok ? await historyResponse.json() : [];
+
+        // Обновляем интерфейс
+        this.updateProfileUI(userData, levelInfo);
+        this.updateStatsUI(userData.stats);
+        this.updateProgressUI(userData.stats);
+        this.displayHistory(history);
+        this.updateLearningPlans(userData.stats);
+
+      } catch (error) {
+        console.error('Ошибка загрузки данных пользователя:', error);
+        this.showMessage('Ошибка загрузки данных: ' + error.message, 'danger');
+      }
+    }
+
+    updateProfileUI(userData, levelInfo) {
+      document.getElementById('profileUsername').textContent = userData.username;
+      document.getElementById('profileEmail').textContent = userData.email;
+      
+      // Используем информацию об уровне
+      const level = levelInfo.level || userData.level || 1;
+      const currentExp = levelInfo.currentLevelExp || (userData.experience % 100) || 0;
+      const expToNext = levelInfo.expToNextLevel || (100 - currentExp);
+      
+      document.getElementById('profileLevel').textContent = `Уровень ${level}`;
+      document.getElementById('profileJoined').textContent = `Присоединился: ${new Date(userData.joined).toLocaleDateString()}`;
+      
+      // Прогресс опыта
+      const expPercent = currentExp;
+      document.getElementById('experienceBar').style.width = `${expPercent}%`;
+      document.getElementById('experienceText').textContent = `${currentExp}/${expToNext + currentExp} XP до след. уровня`;
+      
+      // Обновляем текущего пользователя
+      if (this.currentUser) {
+        this.currentUser.level = level;
+        this.currentUser.experience = userData.experience;
+        this.saveToLocalStorage();
+      }
+    }
+
+    updateStatsUI(stats) {
+      // Завершенные уроки
+      document.getElementById('completedLessons').textContent = stats.completedLessons || 0;
+      
+      // Средний балл
+      const averageScore = stats.testsTaken > 0 ? Math.round(stats.totalScore / stats.testsTaken) : 0;
+      document.getElementById('averageScore').textContent = `${averageScore}%`;
+      
+      // Текущая серия
+      document.getElementById('currentStreak').textContent = stats.currentStreak || 0;
+      
+      // AI запросов сегодня
+      const today = new Date().toDateString();
+      const aiRequestsToday = stats.dailyRequests ? (stats.dailyRequests[today] || 0) : 0;
+      document.getElementById('aiRequestsToday').textContent = aiRequestsToday;
+    }
+
+    updateProgressUI(stats) {
+      const progress = stats.progress || {};
+      
+      // Программирование
+      const programmingProgress = progress.programming || 0;
+      document.getElementById('progressProgramming').style.width = `${programmingProgress}%`;
+      document.getElementById('progressProgrammingText').textContent = 
+        `Завершено: ${Math.round(programmingProgress / 5)}/20 уроков`;
+      
+      // Алгоритмы
+      const algorithmsProgress = progress.algorithms || 0;
+      document.getElementById('progressAlgorithms').style.width = `${algorithmsProgress}%`;
+      document.getElementById('progressAlgorithmsText').textContent = 
+        `Завершено: ${Math.round(algorithmsProgress / 5)}/20 уроков`;
+      
+      // Веб-разработка
+      const webProgress = progress.web || 0;
+      document.getElementById('progressWeb').style.width = `${webProgress}%`;
+      document.getElementById('progressWebText').textContent = 
+        `Завершено: ${Math.round(webProgress / 5)}/20 уроков`;
+      
+      // Базы данных
+      const databasesProgress = progress.databases || 0;
+      document.getElementById('progressDatabases').style.width = `${databasesProgress}%`;
+      document.getElementById('progressDatabasesText').textContent = 
+        `Завершено: ${Math.round(databasesProgress / 5)}/20 уроков`;
+    }
+
+    updateLearningPlans(stats) {
+      const weeklyProgress = this.calculateWeeklyProgress(stats);
+      document.getElementById('weeklyProgress').style.width = `${weeklyProgress}%`;
+      document.getElementById('weeklyProgressText').textContent = `${weeklyProgress}% недельных целей выполнено`;
+      
+      const monthlyProgress = this.calculateMonthlyProgress(stats);
+      document.getElementById('monthlyProgress').style.width = `${monthlyProgress}%`;
+      document.getElementById('monthlyProgressText').textContent = `${monthlyProgress}% месячных целей выполнено`;
+      
+      this.updateGoalsLists(stats);
+    }
+
+    calculateWeeklyProgress(stats) {
+      const today = new Date();
+      let activeDays = 0;
+      
+      if (stats.dailyRequests) {
+        for (let i = 0; i < 7; i++) {
+          const date = new Date();
+          date.setDate(today.getDate() - i);
+          const dateString = date.toDateString();
+          if (stats.dailyRequests[dateString] > 0) {
+            activeDays++;
+          }
+        }
+      }
+      
+      return Math.min(100, Math.round((activeDays / 7) * 100));
+    }
+
+    calculateMonthlyProgress(stats) {
+      const progress = stats.progress || {};
+      const totalProgress = (progress.programming || 0) + (progress.algorithms || 0) + 
+                          (progress.web || 0) + (progress.databases || 0);
+      const maxPossible = 400;
+      return Math.round((totalProgress / maxPossible) * 100);
+    }
+
+    updateGoalsLists(stats) {
+      const weeklyGoals = [
+        "Завершить минимум 3 урока с AI-помощником",
+        "Пройти один практический тест",
+        "Использовать поиск контента для исследования",
+        "Поддерживать 3-дневную серию обучения"
+      ];
+      
+      const monthlyGoals = [
+        "Достичь 5 уровня",
+        "Завершить Основы программирования (50%)",
+        "Достичь среднего балла 80%",
+        "Использовать все AI-инструменты хотя бы раз"
+      ];
+      
+      this.renderGoalsList('weeklyGoalsList', weeklyGoals, this.calculateWeeklyProgress(stats));
+      this.renderGoalsList('monthlyGoalsList', monthlyGoals, this.calculateMonthlyProgress(stats));
+    }
+
+    renderGoalsList(containerId, goals, progress) {
+      const container = document.getElementById(containerId);
+      const completedCount = Math.floor((progress / 100) * goals.length);
+      
+      let html = '';
+      goals.forEach((goal, index) => {
+        const isCompleted = index < completedCount;
+        html += `
+          <div class="goal-item ${isCompleted ? 'goal-completed' : ''}">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" ${isCompleted ? 'checked' : ''} disabled>
+              <label class="form-check-label">${goal}</label>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+
+    async displayHistory(history) {
+      const historyContainer = document.getElementById('historyContainer');
+      
+      if (history.length === 0) {
+        historyContainer.innerHTML = '<p class="text-muted text-center">История активности пока отсутствует. Начните использовать AI-инструменты, чтобы увидеть вашу активность здесь!</p>';
+        return;
+      }
+
+      let html = '';
+      history.slice(0, 10).forEach(item => {
+        const date = new Date(item.timestamp);
+        const timeString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        
+        html += `
+          <div class="history-item">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <strong>${this.getActivityType(item.type)}</strong>
+                <p class="mb-1"><strong>Тема:</strong> ${item.topic}</p>
+                ${this.formatActivityDetails(item)}
+              </div>
+              <small class="text-muted">${timeString}</small>
+            </div>
+          </div>
+        `;
+      });
+
+      historyContainer.innerHTML = html;
+    }
+
+    getActivityType(type) {
+      const types = {
+        'chat': '🤖 Чат с AI Помощником',
+        'test': '📝 Практический Тест',
+        'content-search': '🔍 Поиск Контента',
+        'test-completed': '✅ Тест Завершен'
+      };
+      return types[type] || type;
+    }
+
+    formatActivityDetails(item) {
+      if (item.type === 'chat') {
+        return `<p class="mb-1"><strong>Вопрос:</strong> ${item.details.question || 'Н/Д'}</p>`;
+      } else if (item.type === 'test') {
+        return `<p class="mb-1"><strong>Вопросы:</strong> ${item.details.questions || 'Н/Д'}</p>`;
+      } else if (item.type === 'content-search') {
+        return `<p class="mb-1"><strong>Тип:</strong> ${item.details.contentType || 'Н/Д'}</p>
+                <p class="mb-1"><strong>Ресурсы:</strong> ${item.details.resources || 'Н/Д'}</p>`;
+      } else if (item.type === 'test-completed') {
+        return `<p class="mb-1"><strong>Балл:</strong> ${item.score}%</p>`;
+      }
+      return '';
+    }
+
+    handleLogout() {
+      this.currentUser = null;
+      this.token = null;
+      localStorage.removeItem('aiToolkitUser');
+      localStorage.removeItem('aiToolkitToken');
+      this.showLoginForm();
+      document.getElementById('loginForm').reset();
+      this.showMessage('Выход выполнен успешно', 'success');
+    }
+
+    checkExistingLogin() {
+      const savedUser = localStorage.getItem('aiToolkitUser');
+      const savedToken = localStorage.getItem('aiToolkitToken');
+      
+      if (savedUser && savedToken) {
+        this.currentUser = JSON.parse(savedUser);
+        this.token = savedToken;
+        this.showProfile();
+        this.loadUserData();
+      }
+    }
+
+    saveToLocalStorage() {
+      if (this.currentUser && this.token) {
+        localStorage.setItem('aiToolkitUser', JSON.stringify(this.currentUser));
+        localStorage.setItem('aiToolkitToken', this.token);
+      }
+    }
+
+    showMessage(message, type) {
+      const messageDiv = document.getElementById('authMessage');
+      messageDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+      setTimeout(() => {
+        messageDiv.innerHTML = '';
+      }, 5000);
+    }
+
+    static getAuthHeader() {
+      const token = localStorage.getItem('aiToolkitToken');
+      return token ? { 'Authorization': `Bearer ${token}` } : {};
+    }
+
+    static async updateProgress(updates) {
+      try {
+        const token = localStorage.getItem('aiToolkitToken');
+        if (!token) return null;
+
+        const response = await fetch('/api/update-progress', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(updates)
+        });
+        
+        return await response.json();
+      } catch (error) {
+        console.error('Ошибка обновления прогресса:', error);
+        return null;
+      }
+    }
+
+    static async addToHistory(type, topic, details, score = null) {
+      try {
+        const token = localStorage.getItem('aiToolkitToken');
+        if (!token) return null;
+
+        const response = await fetch('/api/add-to-history', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ type, topic, details, score })
+        });
+        
+        return await response.json();
+      } catch (error) {
+        console.error('Ошибка добавления в историю:', error);
+        return null;
+      }
+    }
+  }
+
+  // Инициализация системы при загрузке страницы
+  document.addEventListener('DOMContentLoaded', () => {
+    window.accountSystem = new AccountSystem();
+  });
+</script>
+</body>
+</html>
